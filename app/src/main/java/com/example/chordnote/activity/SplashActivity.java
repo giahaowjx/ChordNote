@@ -26,6 +26,6 @@ public class SplashActivity extends AppCompatActivity
             {
                 UIHelper.showMain(SplashActivity.this);
             }
-        }, 5000);
+        }, 3000);
     }
 }
