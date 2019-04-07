@@ -5,4 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="tab_checked">#2781d7</color>
     <color name="tab_unchecked">#27323a</color>
+    <color name="white">#FFFFFF</color>
 </resources>

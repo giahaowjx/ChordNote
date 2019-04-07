@@ -16,4 +16,9 @@
         android:icon="@drawable/discovery"
         android:title="@string/discovery" />
 
+    <item
+        android:id="@+id/navigation_me"
+        android:icon="@drawable/me"
+        android:title="@string/me"/>
+
 </menu>
