@@ -1,0 +1,44 @@
+package test;
+import java.util.ArrayList;
+public class ClassHour {
+
+	//Title
+	String classChapter;
+	String classSection;
+	String className;
+	
+	//文字简介
+	String classIntroduction;
+	
+	//题目,与problem有联系
+	ArrayList<Problems> thisSectionProblems;
+	
+	
+	//构造函数
+	public ClassHour(String chapter,String section,String name) 
+	{
+		classChapter=chapter;
+		classSection=section;
+		className=name;
+		classIntroduction=getInfoFromDB();
+	}
+	
+	public void setInfo(String cha,String sec,String nam)
+	{
+		classChapter=cha;
+		classSection=sec;
+		className=nam;
+	}
+	
+	public void setProblems()
+	{
+		//这个怎么关联...
+	}
+	
+	public void updateDB()
+	{
+		//将有关属性值通过数据库接口写入
+	}
+	
+	
+}
