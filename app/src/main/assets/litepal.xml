@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<litepal>
+    <dbname value="ChordNoteDataBase"></dbname>
+    <version value="1"></version>
+    <list>
+        <mapping class="com.example.chordnote.DataBase.Lesson_Table"></mapping>
+        <mapping class="com.example.chordnote.DataBase.Practice_Table"></mapping>
+    </list>
+</litepal>

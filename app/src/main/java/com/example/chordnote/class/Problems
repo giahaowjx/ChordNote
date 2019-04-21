@@ -22,16 +22,29 @@ public class Problems {
 								//也可附加音频和图片
 	
 	
-	public Problems(int id,boolean comple,boolean colle) {
+	public Problems(int id) {
 		ID=id;
-		completed=comple;
-		collected=colle;
+		completed=getcompleteFromDB();
+		collected=getcollectFromDB();
+		correctOrNot=getCollectedFromDB();
 		//待完善,setAttributesFromDB()
 		correctAnswer=getAnswerFromDB();
 		problem=getProFromDB();
 		options=getOptionsFromDB();
 	}
-	
+	public void setcomplete(boolean complete)
+	{
+        this.completed=complete;
+	}
+	public void setcollected(boolean collected)
+    {
+            this.collected=collected;
+    }
+    public void setcorrectOrNot(boolean correctOrNot)
+    {
+         this.correctOrNot=correctOrNot;
+    }
+
 	public void addNotes(String sth)
 	{
 		notes=sth;
@@ -63,7 +76,7 @@ public class Problems {
 		setDBcollectOrNOt(collected);
 		setDBcorrectOrNot(correctOrNot);
 		setDBcompleteOrNot(completed);
-		setNotes(notes);
+		setDBNotes(notes);
 	}
 	
 	

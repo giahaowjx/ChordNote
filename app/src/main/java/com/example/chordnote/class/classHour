@@ -2,6 +2,7 @@ package test;
 import java.util.ArrayList;
 public class ClassHour {
 
+    int id;//需要根据id访问对应的课程
 	//Title
 	String classChapter;
 	String classSection;
@@ -15,30 +16,29 @@ public class ClassHour {
 	
 	
 	//构造函数
-	public ClassHour(String chapter,String section,String name) 
+	public ClassHour(int ID)
 	{
-		classChapter=chapter;
-		classSection=section;
-		className=name;
+	    id=ID;
+		classChapter=getclassChapterFromDB();
+		classSection=getclassSectionFromDB();
+		className=getclassNameFromDB();
 		classIntroduction=getInfoFromDB();
 	}
 	
-	public void setInfo(String cha,String sec,String nam)
+
+	
+	public  List<Problems>getProblems()
 	{
-		classChapter=cha;
-		classSection=sec;
-		className=nam;
+        List problemsIDs=getproblemIDsfromDB();
+        List<Problems>problems=new ArrayList<>();
+        for(int id:problemsIDs)//根据练习id得到对应的练习
+        {
+            Problem problem=new Problem(id);
+            problems.add(problem);
+        }
 	}
 	
-	public void setProblems()
-	{
-		//这个怎么关联...
-	}
-	
-	public void updateDB()
-	{
-		//将有关属性值通过数据库接口写入
-	}
+
 	
 	
 }
