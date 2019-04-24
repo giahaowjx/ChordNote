@@ -1,5 +1,7 @@
 package com.example.chordnote.activity;
 
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +15,7 @@ import android.widget.Toast;
 import com.example.chordnote.fragment.StudyFragment;
 import com.example.chordnote.test.testItem;
 
-import java.util.List;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity implements StudyFragment.OnListFragmentInteractionListener
 {
@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements StudyFragment.OnL
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
 
     }
 
