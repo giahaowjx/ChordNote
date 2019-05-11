@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chordnote.activity.R;
+import com.example.chordnote.domain.Period;
 import com.example.chordnote.fragment.StudyFragment.OnListFragmentInteractionListener;
 import com.example.chordnote.test.testItem;
 
@@ -21,10 +22,10 @@ import java.util.List;
 public class StudyItemRecyclerViewAdapter extends RecyclerView.Adapter<StudyItemRecyclerViewAdapter.ViewHolder>
 {
 
-    private final List<testItem> mValues;
+    private final List<Period> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public StudyItemRecyclerViewAdapter(List<testItem> items, OnListFragmentInteractionListener listener)
+    public StudyItemRecyclerViewAdapter(List<Period> items, OnListFragmentInteractionListener listener)
     {
         mValues = items;
         mListener = listener;
@@ -41,9 +42,8 @@ public class StudyItemRecyclerViewAdapter extends RecyclerView.Adapter<StudyItem
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position)
     {
-        testItem item = mValues.get(position);
-        holder.testImage.setImageResource(item.getImageId());
-        holder.testText.setText(item.getName());
+        Period item = mValues.get(position);
+        holder.testText.setText(item.getPeriodTitle());
     }
 
     @Override
@@ -55,14 +55,12 @@ public class StudyItemRecyclerViewAdapter extends RecyclerView.Adapter<StudyItem
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public final View mView;
-        public final ImageView testImage;
         public final TextView testText;
 
         public ViewHolder(View view)
         {
             super(view);
             mView = view;
-            testImage = (ImageView) view.findViewById(R.id.test_image);
             testText = (TextView) view.findViewById(R.id.test_text);
         }
 

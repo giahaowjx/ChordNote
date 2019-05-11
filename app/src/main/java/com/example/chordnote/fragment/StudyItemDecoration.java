@@ -42,7 +42,7 @@ public class StudyItemDecoration extends RecyclerView.ItemDecoration
         super.getItemOffsets(outRect, view, parent, state);
         int position = parent.getChildAdapterPosition(view);
         // 每五个为一个章节（测试）开头的Item上方添加边框
-        if (onTagListener.isGroupFirst(position) || position == 0)
+        if (onTagListener.isChapterFirst(position) || position == 0)
         {
             outRect.top = decorationHeight;
         }
@@ -83,25 +83,20 @@ public class StudyItemDecoration extends RecyclerView.ItemDecoration
             // 获取该子View在Adapter中的位置
             int position = parent.getChildAdapterPosition(childView);
             // 判断当前子项是否在当前标签下
-            if (TextUtils.equals(currentTag, onTagListener.getGroupName(position)))
+            if (TextUtils.equals(currentTag, onTagListener.getChapter(position)))
             {
                 // 如果是当前页，则不做处理
                 Log.d(TAG, "onDrawOver: Mark 2");
                 continue;
             }
-            Log.d(TAG, "onDrawOver: Mark 1");
-            currentTag = onTagListener.getGroupName(position);
+            currentTag = onTagListener.getChapter(position);
             int viewBottom = childView.getBottom();
             // Top 是当前子项的顶部，在到达最上方标签前，是子项自己的top，被顶部
             // Tag遮挡时，是顶部标签的高度
-            Log.d(TAG, "onDrawOver: Mark 3 ");
-
             int top = Math.max(decorationHeight, childView.getTop());
-            Log.d(TAG, "onDrawOver: Mark 4 ");
-
             if (position + 1 < itemCount)
             {
-                if (!currentTag.equals(onTagListener.getGroupName(position + 1)) &&
+                if (!currentTag.equals(onTagListener.getChapter(position + 1)) &&
                         viewBottom < top)
                 {
                     top = viewBottom;
@@ -121,9 +116,9 @@ public class StudyItemDecoration extends RecyclerView.ItemDecoration
     // 该接口提供判断是否为当前标签页的开头和当前标签的名字
     public interface OnTagListener
     {
-        String getGroupName(int position);
+        String getChapter(int position);
 
-        boolean isGroupFirst(int position);
+        boolean isChapterFirst(int position);
     }
 
 }

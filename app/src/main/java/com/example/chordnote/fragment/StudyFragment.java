@@ -6,18 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chordnote.activity.R;
+import com.example.chordnote.domain.Book;
 import com.example.chordnote.test.testItem;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
+import com.example.chordnote.domain.Period;
 
 /**
  * A fragment representing a list of Items.
@@ -34,7 +30,8 @@ public class StudyFragment extends Fragment
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    private List<testItem> testItemList = new ArrayList<>();
+    // 当前显示目录的Book，测试时new，正式时需要从本地读取Book对象
+    private Book currentBook = new Book();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -73,8 +70,6 @@ public class StudyFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.study_fragment_item_list, container, false);
 
-        initTestItems();
-
         // Set the adapter
         if (view instanceof RecyclerView)
         {
@@ -87,22 +82,25 @@ public class StudyFragment extends Fragment
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new StudyItemRecyclerViewAdapter(testItemList, mListener));
+            recyclerView.setAdapter(new StudyItemRecyclerViewAdapter(currentBook.getPeriodList(), mListener));
             recyclerView.addItemDecoration(new StudyItemDecoration(new StudyItemDecoration.OnTagListener()
             {
                 @Override
-                public String getGroupName(int position)
+                public String getChapter(int position)
                 {
-                    int count = position / 5;
-                    return String.valueOf(count);
+                    return currentBook.getPeriod(position).getChapterTitle();
                 }
 
                 @Override
-                public boolean isGroupFirst(int position)
+                public boolean isChapterFirst(int position)
                 {
-                    if (position % 5 == 0)
+                    // 判断当前Period的章节与上一个Period章节是否相同，如果不同则是一个章节的第一个课时
+                    // 或者是开头第一个Period
+                    if (position == 0 || !currentBook.getPeriod(position).getChapterTitle().
+                            equals(currentBook.getPeriod(position - 1).getChapterTitle()))
                         return true;
-                    return false;
+                    else
+                        return false;
                 }
             }));
         }
@@ -145,14 +143,5 @@ public class StudyFragment extends Fragment
     {
         // TODO: Update argument type and name
         void onListFragmentInteraction(testItem item);
-    }
-
-    // 测试用加入测试数据，测试完后会删除
-    private void initTestItems()
-    {
-        for (int i = 0; i <= 30; i++)
-        {
-            testItemList.add(new testItem("" + i));
-        }
     }
 }
