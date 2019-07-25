@@ -1,5 +1,7 @@
-package com.example.chordnote.ui;
+package com.example.chordnote.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.chordnote.R;
@@ -12,6 +14,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
+
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -10,8 +10,8 @@ import javax.inject.Inject;
 
 public class ChordNoteApp extends Application {
 
-//    @Inject
-//    DataManager manager;
+    @Inject
+    DataManager manager;
 
     private ApplicationComponent mApplicationComponent;
 

@@ -1,4 +1,4 @@
-package com.chordnote.mvptemplate.di;
+package com.example.chordnote.di;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
