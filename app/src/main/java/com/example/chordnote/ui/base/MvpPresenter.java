@@ -7,5 +7,4 @@ public interface MvpPresenter<V extends MvpView> {
     void onDetach();
 
     void handleApiError();
-
 }

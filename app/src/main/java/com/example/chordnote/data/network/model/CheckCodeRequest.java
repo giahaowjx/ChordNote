@@ -3,9 +3,10 @@ package com.example.chordnote.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ValidateCodeRequest {
+public class CheckCodeRequest {
 
-    private ValidateCodeRequest() {
+    public CheckCodeRequest(String email) {
+        this.email = email;
     }
 
     @Expose

@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">MvpTemplate</string>
+    <string name="app_name">ChordNote</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_study">Study</string>
     <string name="title_compose">Compose</string>
     <string name="title_discovery">Discovery</string>
     <string name="title_me">Me</string>
+    <string name="user_login">用户登陆</string>
 </resources>

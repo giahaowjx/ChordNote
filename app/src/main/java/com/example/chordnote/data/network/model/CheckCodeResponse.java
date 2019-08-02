@@ -3,9 +3,9 @@ package com.example.chordnote.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ValidateCodeResponse {
+public class CheckCodeResponse {
 
-    private ValidateCodeResponse() {
+    public CheckCodeResponse() {
     }
 
     @Expose

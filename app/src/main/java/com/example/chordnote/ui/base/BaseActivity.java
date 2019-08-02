@@ -1,31 +1,38 @@
 package com.example.chordnote.ui.base;
 
-import android.app.ProgressDialog;
+
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import com.example.chordnote.ChordNoteApp;
+import com.example.chordnote.R;
 import com.example.chordnote.di.component.ActivityComponent;
-
-
-import butterknife.Unbinder;
+import com.example.chordnote.di.component.DaggerActivityComponent;
+import com.example.chordnote.di.module.ActivityModule;
 
 public class BaseActivity extends AppCompatActivity
         implements MvpView, BaseFragment.Callback {
 
-    private ProgressDialog mProgressDialog;
     private ActivityComponent mActivityComponent;
-    private Unbinder mUnBinder;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mActivityComponent = DaggerActivityComponent.builder()
-//                .activityModule(new ActivityModule(this))
-//                .applicationComponent(((ChordNoteApp) getApplication()).getComponent())
-//                .build();
+        mActivityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .applicationComponent(((ChordNoteApp) getApplication()).getComponent())
+                .build();
+
+        progressBar.findViewById(R.id.pb_loading);
 
     }
 
@@ -36,19 +43,24 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void showLoading() {
         hideLoading();
-        // mProgressDialog = CommonUtils.showLoadingDialog(this);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
+        if (progressBar != null && progressBar.isShown()) {
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
-    public void onError(String message) {
+    public void showToastText(String string) {
+        Toast.makeText(this, string, Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void onError(String message) {
     }
 
     @Override
@@ -66,16 +78,9 @@ public class BaseActivity extends AppCompatActivity
 
     }
 
-    public void setUnBinder(Unbinder unBinder) {
-        mUnBinder = unBinder;
-    }
-
     @Override
     protected void onDestroy() {
 
-        if (mUnBinder != null) {
-            mUnBinder.unbind();
-        }
         super.onDestroy();
     }
 }

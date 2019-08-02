@@ -2,11 +2,10 @@ package com.example.chordnote.ui.splash;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.ui.base.BasePresenter;
-import com.example.chordnote.ui.base.MvpView;
 
 import javax.inject.Inject;
 
-public class SplashPresenterImpl<V extends MvpView> extends BasePresenter<V> implements SplashPresenter<V> {
+public class SplashPresenterImpl<V extends SplashView> extends BasePresenter<V> implements SplashPresenter<V> {
 
     @Inject
     public SplashPresenterImpl(DataManager manager) {
@@ -19,10 +18,17 @@ public class SplashPresenterImpl<V extends MvpView> extends BasePresenter<V> imp
 
         // 可以加入线程放动画
 
+        goNextActivity();
+
     }
 
-    public void goNextActivity() {
-
+    private void goNextActivity() {
+        if (getDataManager().getCurrentLoginState()) {
+            getMvpView().openMainActivity();
+        } else {
+            getDataManager().setCurrentUserId(Long.valueOf(0));
+            getMvpView().openLoginActivity();
+        }
     }
 
 }

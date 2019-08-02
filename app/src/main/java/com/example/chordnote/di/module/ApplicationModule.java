@@ -6,6 +6,8 @@ import android.content.Context;
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.data.db.DbHelper;
 import com.example.chordnote.data.db.DbHelperImpl;
+import com.example.chordnote.data.network.ApiHelper;
+import com.example.chordnote.data.network.ApiHelperImpl;
 import com.example.chordnote.data.prefs.PreferencesHelper;
 import com.example.chordnote.data.prefs.PreferencesHelperImpl;
 import com.example.chordnote.di.ApplicationContext;
@@ -16,6 +18,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 @Module
 public class ApplicationModule {
@@ -45,8 +48,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(PreferencesHelper preferencesHelper) {
-        return new DataManager(preferencesHelper);
+    DataManager provideDataManager(PreferencesHelper preferencesHelper, ApiHelper apiHelper) {
+        return new DataManager(preferencesHelper, apiHelper);
     }
 
     @Provides
@@ -57,9 +60,21 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
+    ApiHelper provideApiHelper() {
+        return new ApiHelperImpl();
+    }
+
+    @Provides
+    @Singleton
     PreferencesHelper providePreferencesHelper(@ApplicationContext Context context, @PreferenceInfo
-                                               String name) {
+            String name) {
         return new PreferencesHelperImpl(context,name);
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient() {
+        return new OkHttpClient();
     }
 
 }

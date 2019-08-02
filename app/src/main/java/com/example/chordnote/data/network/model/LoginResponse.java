@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
+    public LoginResponse() {
+
+    }
+
     @Expose
     @SerializedName("status_code")
     private int statusCode;

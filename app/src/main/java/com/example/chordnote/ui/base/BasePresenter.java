@@ -1,17 +1,20 @@
 package com.example.chordnote.ui.base;
 
+import android.provider.ContactsContract;
+
+import com.example.chordnote.ChordNoteApp;
 import com.example.chordnote.data.DataManager;
 
 import javax.inject.Inject;
 
 public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
-    private final DataManager mDataManager;
+    private DataManager manager;
     private V mMvpView;
 
     @Inject
-    public BasePresenter(DataManager dataManager) {
-        this.mDataManager = dataManager;
+    public BasePresenter(DataManager manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     }
 
     public DataManager getDataManager() {
-        return mDataManager;
+        return manager;
     }
 
     @Override
