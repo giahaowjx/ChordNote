@@ -11,7 +11,11 @@ import android.widget.EditText;
 
 import com.example.chordnote.R;
 import com.example.chordnote.ui.base.BaseActivity;
+import com.example.chordnote.ui.main.MainActivity;
 import com.example.chordnote.ui.register.RegisterActivity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -50,6 +54,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         // 注入presenter
         getActivityComponent().inject(this);
 
+        presenter.onAttach(this);
+
     }
 
     public static Intent getIntent(Context context) {
@@ -61,6 +67,13 @@ public class LoginActivity extends BaseActivity implements LoginView {
     public void openRegisterActivity() {
         Intent intent = RegisterActivity.getIntent(LoginActivity.this);
         startActivity(intent);
+    }
+
+    @Override
+    public void openMainActivity() {
+        Intent intent = MainActivity.getIntent(LoginActivity.this);
+        startActivity(intent);
+        onDestroy();
     }
 
     @OnClick(R.id.user_register_btn)
@@ -75,7 +88,29 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @OnClick(R.id.user_login_btn)
     public void onClickLoginBtn(View view) {
+        String email = emailEdt.getText().toString();
+        String passwrod = passwordEdt.getText().toString();
 
+        if (email.length() <= 0) {
+            showToastText("请输入邮箱");
+        }
+
+        if (passwrod.length() <= 0) {
+            showToastText("请输入密码");
+        }
+
+        Map<String, String> request = new HashMap<>();
+
+        request.put("email", email);
+        request.put("user_pwd", passwrod);
+
+        presenter.Login(request);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDetach();
     }
 
 }

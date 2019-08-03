@@ -3,10 +3,12 @@ package com.example.chordnote.data;
 import com.example.chordnote.data.network.ApiHelper;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
 import com.example.chordnote.data.network.model.LoginResponse;
-import com.example.chordnote.data.network.model.RegisterRequest;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.prefs.PreferencesHelper;
 
+import java.util.Map;
+
+import okhttp3.RequestBody;
 import rx.Observable;
 
 public class DataManager implements DataManagerApi {
@@ -42,12 +44,12 @@ public class DataManager implements DataManagerApi {
     }
 
     // ApiHelper interface
-    public LoginResponse doLoginApiCall(LoginRequest.ServerLoginRequest request) {
-        return apiHelper.doLoginApiCall(request);
+    public Observable<LoginResponse> doLoginApiCall(Map<String, RequestBody> requestBodyMap) {
+        return apiHelper.doLoginApiCall(requestBodyMap);
     }
 
-    public RegisterResponse doRegisterApiCall(RegisterRequest request) {
-        return apiHelper.doRegisterApiCall(request);
+    public Observable<RegisterResponse> doRegisterApiCall(Map<String, RequestBody> requestBodyMap) {
+        return apiHelper.doRegisterApiCall(requestBodyMap);
     }
 
     public Observable<CheckCodeResponse> doSendCheckCodeApiCall(String email) {

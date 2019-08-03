@@ -16,8 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
     public static Intent getIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        return intent;
+        return new Intent(context, MainActivity.class);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

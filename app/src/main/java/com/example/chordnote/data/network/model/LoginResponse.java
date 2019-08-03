@@ -10,15 +10,11 @@ public class LoginResponse {
     }
 
     @Expose
-    @SerializedName("status_code")
+    @SerializedName("code")
     private int statusCode;
 
     @Expose
-    @SerializedName("user_id")
-    private Long userId;
-
-    @Expose
-    @SerializedName("user_num")
+    @SerializedName("email")
     private String userEmail;
 
     @Expose
@@ -26,31 +22,27 @@ public class LoginResponse {
     private String userName;
 
     @Expose
-    @SerializedName("token")
-    private String Token;
-
-    @Expose
     @SerializedName("msg")
     private String message;
 
     @Expose
-    @SerializedName("profile_pic_url")
-    private String profilePicUrl;
+    @SerializedName("user_pwd")
+    private String password;
 
-    public void setProfilePicUrl(String profilePicUrl) {
-        this.profilePicUrl = profilePicUrl;
+    public String getPassword() {
+        return password;
     }
 
-    public String getProfilePicUrl() {
-        return profilePicUrl;
+    public void setPassword(String password) {
+        this.password = password;
     }
+//
+//    @Expose
+//    @SerializedName("profile_pic_url")
+//    private String profilePicUrl;
 
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public void setUserEmail(String userEmail) {
@@ -61,10 +53,6 @@ public class LoginResponse {
         this.userName = userName;
     }
 
-    public void setToken(String token) {
-        Token = token;
-    }
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -73,20 +61,12 @@ public class LoginResponse {
         return statusCode;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
 
     public String getUserName() {
         return userName;
-    }
-
-    public String getToken() {
-        return Token;
     }
 
     public String getMessage() {

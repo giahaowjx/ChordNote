@@ -1,14 +1,17 @@
 package com.example.chordnote.data.network;
 
 import com.example.chordnote.data.network.model.LoginResponse;
-import com.example.chordnote.data.network.model.RegisterRequest;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
 import com.example.chordnote.utils.AppSetting;
-import com.google.gson.Gson;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,6 +22,8 @@ public class ApiHelperImpl implements ApiHelper {
 
 //    private ApiHeader mApiHeader;
 
+    private static final String TAG = "ApiHelperImpl";
+
     private Retrofit retrofit;
 
     private NetworkService service;
@@ -26,12 +31,17 @@ public class ApiHelperImpl implements ApiHelper {
     @Inject
     public ApiHelperImpl() {
 
-        Gson gson = new Gson();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(interceptor);
+
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(AppSetting.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(builder.build())
                 .build();
 
         service = retrofit.create(NetworkService.class);
@@ -43,18 +53,19 @@ public class ApiHelperImpl implements ApiHelper {
 //    }
 
     @Override
-    public LoginResponse doLoginApiCall(LoginRequest.ServerLoginRequest request) {
-        return null;
+    public Observable<LoginResponse> doLoginApiCall(Map<String, RequestBody> requestBodyMap) {
+        return service.postLoginRequest(requestBodyMap);
     }
 
     @Override
-    public RegisterResponse doRegisterApiCall(RegisterRequest request) {
-        return null;
+    public Observable<RegisterResponse> doRegisterApiCall(Map<String, RequestBody> requestBodyMap) {
+
+        return service.postRegisterRequest(requestBodyMap);
     }
 
     @Override
     public Observable<CheckCodeResponse> doSendCheckCodeApiCall(String  email) {
 
-        return service.postCheckCode(email);
+        return service.getCheckCode(email);
     }
 }

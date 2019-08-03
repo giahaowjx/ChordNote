@@ -6,4 +6,6 @@ public interface LoginView extends MvpView {
 
     void openRegisterActivity();
 
+    void openMainActivity();
+
 }

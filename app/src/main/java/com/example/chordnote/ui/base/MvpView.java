@@ -14,4 +14,6 @@ public interface MvpView {
 
     void showToastText(String string);
 
+    void destroy();
+
 }

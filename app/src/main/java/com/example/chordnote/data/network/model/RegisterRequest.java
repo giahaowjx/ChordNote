@@ -5,8 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterRequest {
 
-    private RegisterRequest() {
-
+    public RegisterRequest(String email, String password, String checkCode, String name) {
+        this.email = email;
+        this.checkCode = checkCode;
+        this.name = name;
+        this.password = password;
     }
 
     @Expose
@@ -14,12 +17,16 @@ public class RegisterRequest {
     private String email;
 
     @Expose
+    @SerializedName("checkcode")
+    private String checkCode;
+
+    @Expose
     @SerializedName("user_pwd")
     private String password;
 
     @Expose
-    @SerializedName("checkcode")
-    private String checkCode;
+    @SerializedName("name")
+    private String name;
 
     public void setEmail(String email) {
         this.email = email;
@@ -43,5 +50,13 @@ public class RegisterRequest {
 
     public String getCheckCode() {
         return checkCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

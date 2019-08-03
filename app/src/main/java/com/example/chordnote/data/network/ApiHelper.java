@@ -1,10 +1,12 @@
 package com.example.chordnote.data.network;
 
 import com.example.chordnote.data.network.model.LoginResponse;
-import com.example.chordnote.data.network.model.RegisterRequest;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
 
+import java.util.Map;
+
+import okhttp3.RequestBody;
 import rx.Observable;
 
 
@@ -12,9 +14,9 @@ public interface ApiHelper {
 
 //    ApiHeader getApiHeader();
 
-    LoginResponse doLoginApiCall(LoginRequest.ServerLoginRequest request);
+    Observable<LoginResponse> doLoginApiCall(Map<String, RequestBody> requestBodyMap);
 
-    RegisterResponse doRegisterApiCall(RegisterRequest request);
+    Observable<RegisterResponse> doRegisterApiCall(Map<String, RequestBody> request);
 
     Observable<CheckCodeResponse> doSendCheckCodeApiCall(String  email);
 

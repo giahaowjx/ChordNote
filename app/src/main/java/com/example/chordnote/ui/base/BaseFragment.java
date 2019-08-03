@@ -5,9 +5,13 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+
+import com.example.chordnote.R;
 
 import butterknife.Unbinder;
 
@@ -15,11 +19,17 @@ public class BaseFragment extends Fragment implements MvpView {
 
     private BaseActivity mActivity;
     private Unbinder mUnBinder;
-    private ProgressDialog mProgressDialog;
+    private ProgressBar progressBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        progressBar = new ProgressBar(getContext());
+
+        progressBar.findViewById(R.id.pb_loading);
+
+
     }
 
     @Override
@@ -40,14 +50,20 @@ public class BaseFragment extends Fragment implements MvpView {
     @Override
     public void showLoading() {
         hideLoading();
-        return;
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.cancel();
+        if (progressBar != null && progressBar.isShown()) {
+            progressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void showToastText(String string) {
+        Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
+
     }
 
     @Override
@@ -76,6 +92,11 @@ public class BaseFragment extends Fragment implements MvpView {
             mUnBinder.unbind();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void destroy() {
+        onDestroy();
     }
 
     public interface Callback {

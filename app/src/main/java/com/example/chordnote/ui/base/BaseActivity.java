@@ -32,6 +32,8 @@ public class BaseActivity extends AppCompatActivity
                 .applicationComponent(((ChordNoteApp) getApplication()).getComponent())
                 .build();
 
+        progressBar = new ProgressBar(this);
+
         progressBar.findViewById(R.id.pb_loading);
 
     }
@@ -79,8 +81,8 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
+    public void destroy() {
 
-        super.onDestroy();
+        onDestroy();
     }
 }
