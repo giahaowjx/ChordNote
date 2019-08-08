@@ -4,11 +4,9 @@ import android.util.Log;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
-import com.example.chordnote.data.network.model.RegisterRequest;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.ui.base.BasePresenter;
 import com.example.chordnote.utils.NetworkUtils;
-import com.google.gson.Gson;
 
 import java.util.Map;
 
