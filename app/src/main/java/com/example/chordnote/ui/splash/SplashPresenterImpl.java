@@ -18,17 +18,8 @@ public class SplashPresenterImpl<V extends SplashView> extends BasePresenter<V> 
 
         // 可以加入线程放动画
 
-        goNextActivity();
+        getMvpView().openMainActivity();
 
-    }
-
-    private void goNextActivity() {
-        if (getDataManager().getCurrentLoginState()) {
-            getMvpView().openMainActivity();
-        } else {
-            getDataManager().setCurrentUserId(Long.valueOf(0));
-            getMvpView().openLoginActivity();
-        }
     }
 
 }

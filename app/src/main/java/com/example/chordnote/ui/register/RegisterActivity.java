@@ -128,4 +128,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView {
         presenter.onDetach();
     }
 
+    @Override
+    public void closeRegisterView() {
+        finish();
+    }
+
 }

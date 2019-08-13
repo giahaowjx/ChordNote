@@ -1,9 +1,11 @@
 package com.example.chordnote.ui.login;
 
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.example.chordnote.data.DataManager;
+import com.example.chordnote.data.db.model.User;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.ui.base.BasePresenter;
 import com.example.chordnote.utils.NetworkUtils;
@@ -55,7 +57,13 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                         } else if (code == 1000) {
                             getMvpView().showToastText("登陆成功");
 
+                            Bundle data = new Bundle();
 
+                            data.putString("email", loginResponse.getUserEmail());
+                            data.putString("name", loginResponse.getUserName());
+                            data.putString("password", loginResponse.getPassword());
+
+                            getMvpView().loginSuccessfully(data);
                         }
                     }
                 });

@@ -19,5 +19,4 @@ public interface ApiHelper {
     Observable<RegisterResponse> doRegisterApiCall(Map<String, RequestBody> request);
 
     Observable<CheckCodeResponse> doSendCheckCodeApiCall(String  email);
-
 }

@@ -4,7 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -18,7 +21,7 @@ import butterknife.Unbinder;
 public class BaseFragment extends Fragment implements MvpView {
 
     private BaseActivity mActivity;
-    private Unbinder mUnBinder;
+    protected Unbinder unbinder;
     private ProgressBar progressBar;
 
     @Override
@@ -88,15 +91,15 @@ public class BaseFragment extends Fragment implements MvpView {
 
     @Override
     public void onDestroy() {
-        if (mUnBinder != null) {
-            mUnBinder.unbind();
-        }
         super.onDestroy();
     }
 
     @Override
-    public void destroy() {
-        onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
     public interface Callback {

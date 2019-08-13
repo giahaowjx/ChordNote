@@ -2,15 +2,20 @@ package com.example.chordnote.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.data.db.DbHelper;
 import com.example.chordnote.data.db.DbHelperImpl;
+import com.example.chordnote.data.db.DbOpenHelper;
+import com.example.chordnote.data.db.model.DaoMaster;
+import com.example.chordnote.data.db.model.DaoSession;
 import com.example.chordnote.data.network.ApiHelper;
 import com.example.chordnote.data.network.ApiHelperImpl;
 import com.example.chordnote.data.prefs.PreferencesHelper;
 import com.example.chordnote.data.prefs.PreferencesHelperImpl;
 import com.example.chordnote.di.ApplicationContext;
+import com.example.chordnote.di.DatabaseInfo;
 import com.example.chordnote.di.PreferenceInfo;
 import com.example.chordnote.utils.AppSetting;
 
@@ -48,14 +53,20 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(PreferencesHelper preferencesHelper, ApiHelper apiHelper) {
-        return new DataManager(preferencesHelper, apiHelper);
+    DataManager provideDataManager(PreferencesHelper preferencesHelper, ApiHelper apiHelper, DbHelper dbHelper) {
+        return new DataManager(preferencesHelper, apiHelper, dbHelper);
     }
 
     @Provides
     @Singleton
-    DbHelper provideDbHelper() {
-        return new DbHelperImpl();
+    DbHelper provideDbHelper(DbOpenHelper helper) {
+        return new DbHelperImpl(helper);
+    }
+
+    @Provides
+    @Singleton
+    DbOpenHelper provideDbOpenHelper(@ApplicationContext Context context, @DatabaseInfo String name) {
+        return new DbOpenHelper(context, name);
     }
 
     @Provides
@@ -76,5 +87,6 @@ public class ApplicationModule {
     OkHttpClient provideOkHttpClient() {
         return new OkHttpClient();
     }
+
 
 }

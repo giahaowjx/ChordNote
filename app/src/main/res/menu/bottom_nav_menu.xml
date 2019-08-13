@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/navigation_study"
-        android:icon="@mipmap/study"
-        android:title="@string/title_study" />
-
-    <item
-        android:id="@+id/navigation_compose"
-        android:icon="@mipmap/compose"
+        android:icon="@drawable/compose"
         android:title="@string/title_compose" />
 
     <item
+        android:id="@+id/navigation_compose"
+        android:icon="@drawable/study"
+        android:title="@string/title_study" />
+
+    <item
         android:id="@+id/navigation_discover"
-        android:icon="@mipmap/discovery"
+        android:icon="@drawable/discovery"
         android:title="@string/title_discovery" />
 
     <item
         android:id="@+id/navigation_me"
-        android:icon="@mipmap/me"
+        android:icon="@drawable/me"
         android:title="@string/title_me"/>
 
 </menu>

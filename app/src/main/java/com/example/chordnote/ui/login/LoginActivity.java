@@ -69,13 +69,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
         startActivity(intent);
     }
 
-    @Override
-    public void openMainActivity() {
-        Intent intent = MainActivity.getIntent(LoginActivity.this);
-        startActivity(intent);
-        onDestroy();
-    }
-
     @OnClick(R.id.user_register_btn)
     public void onClickRegisterBtn(View view) {
         openRegisterActivity();
@@ -105,6 +98,15 @@ public class LoginActivity extends BaseActivity implements LoginView {
         request.put("user_pwd", passwrod);
 
         presenter.Login(request);
+    }
+
+    @Override
+    public void loginSuccessfully(Bundle data) {
+        Intent intent = new Intent();
+
+        intent.putExtras(data);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

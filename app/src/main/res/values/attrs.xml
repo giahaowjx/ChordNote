@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MeItemView">
+
+        <attr name="icon" format="reference"/>
+        <attr name="name" format="string"/>
+        <attr name="data" format="string"/>
+        <attr name="show_detail" format="boolean"/>
+        <attr name="show_line" format="boolean"/>
+
+    </declare-styleable>
+
+</resources>

@@ -36,4 +36,41 @@ public class PreferencesHelperImpl implements PreferencesHelper {
         editor.apply();
     }
 
+    @Override
+    public String getCurrentUserEmail() {
+        return preferences.getString("currentEmail", " ");
+    }
+
+    @Override
+    public void setCurrentUserEmail(String email) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("currentEmail", email);
+        editor.apply();
+    }
+
+    @Override
+    public String getCurrentUserPass() {
+        return preferences.getString("currentPass", " ");
+    }
+
+    @Override
+    public void setCurrentUserPass(String password) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("currentPass", password);
+        editor.apply();
+    }
+
+    @Override
+    public void setEmailToIdMap(String email, long id) {
+        if (getIdUsingEmail(email) != 0) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putLong(email, id);
+            editor.apply();
+        }
+    }
+
+    @Override
+    public Long getIdUsingEmail(String email) {
+        return (Long)preferences.getLong(email, 0);
+    }
 }

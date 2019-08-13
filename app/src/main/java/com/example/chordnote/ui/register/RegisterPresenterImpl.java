@@ -100,7 +100,7 @@ public class RegisterPresenterImpl<V extends RegisterView> extends BasePresenter
                             getMvpView().showToastText("验证码已过期，请重新获取");
                         } else if (registerResponse.getStatusCode() == 1000) {
                             getMvpView().showToastText("注册成功");
-                            getMvpView().destroy();
+                            getMvpView().closeRegisterView();
                         }
                     }
                 });

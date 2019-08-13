@@ -10,4 +10,16 @@ public interface PreferencesHelper {
 
     void setCurrentUserId(Long id);
 
+    String getCurrentUserEmail();
+
+    void setCurrentUserEmail(String email);
+
+    String getCurrentUserPass();
+
+    void setCurrentUserPass(String password);
+
+    void setEmailToIdMap(String email, long id);
+
+    Long getIdUsingEmail(String email);
+
 }

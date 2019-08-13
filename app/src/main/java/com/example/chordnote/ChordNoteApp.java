@@ -1,8 +1,12 @@
 package com.example.chordnote;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.example.chordnote.data.DataManager;
+import com.example.chordnote.data.db.model.DaoSession;
 import com.example.chordnote.di.component.ApplicationComponent;
 import com.example.chordnote.di.component.DaggerApplicationComponent;
 import com.example.chordnote.di.module.ApplicationModule;
@@ -40,6 +44,12 @@ public class ChordNoteApp extends Application {
 
     public OkHttpClient getOkHttpClient() {
         return client;
+    }
+
+    public boolean isConnect() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return !(connectivityManager.getActiveNetworkInfo() == null);
     }
 
 }

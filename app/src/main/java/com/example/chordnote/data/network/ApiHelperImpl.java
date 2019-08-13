@@ -68,4 +68,5 @@ public class ApiHelperImpl implements ApiHelper {
 
         return service.getCheckCode(email);
     }
+
 }

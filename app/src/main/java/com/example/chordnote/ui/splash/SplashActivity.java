@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
 
         ButterKnife.bind(this);
 
-        logoImage.setImageResource(R.mipmap.study);
+        logoImage.setImageResource(R.drawable.compose);
 
         Log.d(TAG, "onCreate: balabala 1");
 
@@ -43,9 +43,6 @@ public class SplashActivity extends BaseActivity implements SplashView {
         Log.d(TAG, "onCreate: balabala 2");
 
         presenter.onAttach(this);
-
-        onDestroy();
-
     }
 
     public static Intent getIntent(Context context) {
@@ -54,15 +51,10 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    public void openLoginActivity() {
-        Intent intent = LoginActivity.getIntent(SplashActivity.this);
-        startActivity(intent);
-    }
-
-    @Override
     public void openMainActivity() {
         Intent intent = MainActivity.getIntent(SplashActivity.this);
         startActivity(intent);
+        finish();
     }
 
     @Override
