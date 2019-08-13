@@ -14,7 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
+import com.example.chordnote.ChordNoteApp;
 import com.example.chordnote.R;
+import com.example.chordnote.di.component.ActivityComponent;
+import com.example.chordnote.di.component.DaggerActivityComponent;
+import com.example.chordnote.di.module.ActivityModule;
 
 import butterknife.Unbinder;
 
@@ -23,6 +27,13 @@ public class BaseFragment extends Fragment implements MvpView {
     private BaseActivity mActivity;
     protected Unbinder unbinder;
     private ProgressBar progressBar;
+
+    public ActivityComponent getActivityComponent() {
+        if (mActivity != null) {
+            return mActivity.getActivityComponent();
+        }
+        return null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -17,4 +17,11 @@ public class MePresenterImpl<V extends MeView> extends BasePresenter<V> implemen
     public void UpdateUserInfo(User user) {
 
     }
+
+    @Override
+    public void goNextActivity() {
+        if (!getDataManager().getCurrentLoginState()) {
+            getMvpView().openLoginActivity();
+        }
+    }
 }

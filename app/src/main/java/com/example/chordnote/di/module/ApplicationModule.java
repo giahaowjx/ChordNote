@@ -71,6 +71,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
+    @DatabaseInfo
+    String provideDataBaseName() {
+        return "chordnote";
+    }
+
+    @Provides
+    @Singleton
     ApiHelper provideApiHelper() {
         return new ApiHelperImpl();
     }

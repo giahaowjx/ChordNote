@@ -55,7 +55,7 @@ public class MeFragment extends BaseFragment implements MeView {
     MeItemView userLikeDynamic;
 
     @Inject
-    MePresenter<MeFragment> presenter;
+    MePresenter<MeView> presenter;
 
     private Long userId;
 
@@ -74,6 +74,9 @@ public class MeFragment extends BaseFragment implements MeView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivityComponent().inject(this);
+
         if (getArguments() != null) {
         }
     }
@@ -88,7 +91,7 @@ public class MeFragment extends BaseFragment implements MeView {
         unbinder = ButterKnife.bind(this, view);
 
         // 绑定presenter
-
+        presenter.onAttach(this);
 
         return view;
 
@@ -116,6 +119,8 @@ public class MeFragment extends BaseFragment implements MeView {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+        presenter.onDetach();
     }
 
     @OnClick(R.id.app_setting_menu)
@@ -135,7 +140,7 @@ public class MeFragment extends BaseFragment implements MeView {
 
     @OnClick(R.id.user_head_img)
     public void onClickUserHeadImg(View view) {
-
+        presenter.goNextActivity();
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.example.chordnote.di.module.ActivityModule;
 import com.example.chordnote.di.scope.PerActivity;
 import com.example.chordnote.ui.login.LoginActivity;
 import com.example.chordnote.ui.main.MainActivity;
+import com.example.chordnote.ui.main.me.MeFragment;
 import com.example.chordnote.ui.register.RegisterActivity;
 import com.example.chordnote.ui.splash.SplashActivity;
 
@@ -20,5 +21,7 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
 
     void inject(RegisterActivity activity);
+
+    void inject(MeFragment fragment);
 
 }

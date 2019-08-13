@@ -7,4 +7,6 @@ public interface MePresenter<V extends MeView> extends MvpPresenter<V> {
 
     void UpdateUserInfo(User user);
 
+    void goNextActivity();
+
 }

@@ -22,6 +22,26 @@ public class DataManager implements DataManagerApi {
 
     private DbHelper dbHelper;
 
+    @Override
+    public String getCurrentUserEmail() {
+        return preferencesHelper.getCurrentUserEmail();
+    }
+
+    @Override
+    public void setCurrentUserEmail(String email) {
+        preferencesHelper.setCurrentUserEmail(email);
+    }
+
+    @Override
+    public String getCurrentUserPass() {
+        return preferencesHelper.getCurrentUserPass();
+    }
+
+    @Override
+    public void setCurrentUserPass(String password) {
+        preferencesHelper.setCurrentUserPass(password);
+    }
+
     public DataManager(PreferencesHelper preferencesHelper, ApiHelper apiHelper, DbHelper dbHelper) {
         this.preferencesHelper = preferencesHelper;
         this.apiHelper = apiHelper;
