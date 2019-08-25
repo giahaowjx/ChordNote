@@ -117,7 +117,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView {
         map.put("email", email);
         map.put("user_pwd", userPass);
         map.put("checkcode", checkCode);
-        map.put("name", userName);
+        map.put("nickname", userName);
 
         presenter.register(map);
     }

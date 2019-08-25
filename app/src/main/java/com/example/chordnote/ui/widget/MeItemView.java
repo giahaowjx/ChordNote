@@ -1,16 +1,18 @@
-package com.example.chordnote.ui.View;
+package com.example.chordnote.ui.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.chordnote.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 自定义控件，表示用户个人信息界面每一项功能的功能项
@@ -19,9 +21,13 @@ import com.example.chordnote.R;
 public class MeItemView extends RelativeLayout {
 
     private TextView data;
+    private CircleImageView head;
+    private Context mContext;
 
     public MeItemView(final Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        mContext = context;
 
         LayoutInflater.from(context).inflate(R.layout.item_me_menu, this);
         @SuppressLint("CustomViewStyleable")
@@ -31,6 +37,7 @@ public class MeItemView extends RelativeLayout {
         ImageView detail = findViewById(R.id.detail_img);
         ImageView line = findViewById(R.id.line_img);
         TextView name = findViewById(R.id.name_text);
+        head = findViewById(R.id.user_info_head_img);
         data = findViewById(R.id.data_text);
 
         icon.setImageDrawable(typedArray.getDrawable(R.styleable.MeItemView_icon));
@@ -54,6 +61,13 @@ public class MeItemView extends RelativeLayout {
      */
     public void setData(String data) {
         this.data.setText(data);
+    }
+
+    public void setHead(String uri) {
+        Glide.with(mContext)
+                .load(uri)
+                .placeholder(R.drawable.user_head)
+                .into(head);
     }
 
 }

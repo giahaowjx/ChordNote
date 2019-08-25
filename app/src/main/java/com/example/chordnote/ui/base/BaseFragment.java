@@ -19,6 +19,7 @@ import com.example.chordnote.R;
 import com.example.chordnote.di.component.ActivityComponent;
 import com.example.chordnote.di.component.DaggerActivityComponent;
 import com.example.chordnote.di.module.ActivityModule;
+import com.example.chordnote.utils.NetworkUtils;
 
 import butterknife.Unbinder;
 
@@ -78,6 +79,11 @@ public class BaseFragment extends Fragment implements MvpView {
     public void showToastText(String string) {
         Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public boolean isConnected() {
+        return NetworkUtils.isNetWorkAvailable((Context)getActivity());
     }
 
     @Override

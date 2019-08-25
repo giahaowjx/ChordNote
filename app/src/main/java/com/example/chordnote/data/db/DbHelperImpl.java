@@ -34,8 +34,8 @@ public class DbHelperImpl implements DbHelper {
     }
 
     @Override
-    public List<User> getUser(String id) {
-        return session.queryRaw(User.class, "where id = ?", id);
+    public List<User> getUser(String email) {
+        return session.queryRaw(User.class, "where email = ?", email);
     }
 
 }

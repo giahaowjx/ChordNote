@@ -8,16 +8,19 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chordnote.R;
-import com.example.chordnote.ui.View.MeItemView;
+import com.example.chordnote.ui.userinfo.UserInfoActivity;
+import com.example.chordnote.ui.widget.MeItemView;
 import com.example.chordnote.ui.base.BaseFragment;
 import com.example.chordnote.ui.login.LoginActivity;
-import com.example.chordnote.ui.main.MainView;
 
 import javax.inject.Inject;
 
@@ -37,6 +40,8 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class MeFragment extends BaseFragment implements MeView {
+
+    private static final String TAG = "MeFragment";
 
     // 用户头像
     @BindView(R.id.user_head_img)
@@ -58,6 +63,11 @@ public class MeFragment extends BaseFragment implements MeView {
     MePresenter<MeView> presenter;
 
     private Long userId;
+
+    public static final int USER_LOGIN = 1;
+
+    public static final int USER_INFO = 2;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +102,9 @@ public class MeFragment extends BaseFragment implements MeView {
 
         // 绑定presenter
         presenter.onAttach(this);
+
+        // 如果已经是登陆状态，显示用户信息
+        presenter.showUserBriefInfo();
 
         return view;
 
@@ -146,7 +159,13 @@ public class MeFragment extends BaseFragment implements MeView {
     @Override
     public void openLoginActivity() {
         Intent intent = LoginActivity.getIntent(getActivity());
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, USER_LOGIN);
+    }
+
+    @Override
+    public void openUserInfoActivity() {
+        Intent intent = UserInfoActivity.getIntent(getActivity());
+        startActivityForResult(intent, USER_INFO);
     }
 
     @Override
@@ -154,14 +173,29 @@ public class MeFragment extends BaseFragment implements MeView {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case 1:
+            case USER_LOGIN:
                 if (resultCode == RESULT_OK) {
-                    Bundle extras = data.getExtras();
 
-
+                    Log.d(TAG, "onActivityResult: ");
+                    presenter.showUserBriefInfo();
                 }
+                break;
+            case USER_INFO:
+                break;
+            default:
+                break;
         }
+    }
 
+    @Override
+    public void changeUserInfoView(String name, String uri) {
+        Glide.with(this)
+                .load(uri)
+                .placeholder(R.drawable.user_head)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(userHeadImg);
+
+        userNameText.setText(name);
     }
 
     /**

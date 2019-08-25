@@ -3,6 +3,7 @@ package com.example.chordnote.data.network;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
+import com.example.chordnote.data.network.model.UserInformationResponse;
 
 import java.util.Map;
 
@@ -19,4 +20,6 @@ public interface ApiHelper {
     Observable<RegisterResponse> doRegisterApiCall(Map<String, RequestBody> request);
 
     Observable<CheckCodeResponse> doSendCheckCodeApiCall(String  email);
+
+    Observable<UserInformationResponse> doGetUserInformationApiCall(String email);
 }

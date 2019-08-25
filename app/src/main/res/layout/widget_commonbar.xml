@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorPrimary">
+
+    <ImageButton
+        android:id="@+id/bar_return_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_return"
+        android:background="@color/transparent"
+        android:layout_gravity="center_vertical|start"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        />
+
+    <TextView
+        android:id="@+id/bar_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:id="@+id/bar_more_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp" />
+
+    <Button
+        android:id="@+id/bar_text_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"/>
+
+</FrameLayout>

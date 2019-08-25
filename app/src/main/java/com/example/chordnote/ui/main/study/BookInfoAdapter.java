@@ -1,6 +1,7 @@
 package com.example.chordnote.ui.main.study;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,14 @@ import java.util.List;
 
 public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHolder> {
 
+    private static final String TAG = "BookInfoAdapter";
+    
     private Context mContext;
 
     private List<BookInfo> bookInfoList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
         CardView cardView;
         ImageView bookCover;
         TextView bookName;
@@ -43,18 +47,41 @@ public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHo
         if (mContext == null) {
             mContext = parent.getContext();
         }
-        View view = LayoutInflater.from(mContext).inflate(R.layout.book_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_book, parent, false);
+
+
+        Log.d(TAG, "onCreateViewHolder: Chord");
+        
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BookInfo bookInfo = bookInfoList.get(position);
+
         holder.bookName.setText(bookInfo.getBookName());
-        Glide.with(mContext)
-                .load(bookInfo.getBookCover())
-                .into(holder.bookCover);
+
+        if (bookInfo.getBookCover().length() > 0) {
+            Glide.with(mContext)
+                    .load(bookInfo.getBookCover())
+                    .into(holder.bookCover);
+        } else {
+            Glide.with(mContext)
+                    .load(R.drawable.book_cover)
+                    .into(holder.bookCover);
+        }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        Log.d(TAG, "onBindViewHolder: Chord");
     }
+
+
 
     @Override
     public int getItemCount() {

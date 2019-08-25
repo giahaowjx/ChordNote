@@ -22,4 +22,8 @@ public interface PreferencesHelper {
 
     Long getIdUsingEmail(String email);
 
+    void deleteEmailToIdMap(String email);
+
+    void resetCurrentLoginInfo();
+
 }

@@ -14,7 +14,7 @@ public class PreferencesHelperImpl implements PreferencesHelper {
 
     @Override
     public boolean getCurrentLoginState() {
-        return preferences.getBoolean("login_state",false);
+        return preferences.getBoolean("loginState",false);
     }
 
     @Override
@@ -72,5 +72,20 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     @Override
     public Long getIdUsingEmail(String email) {
         return (Long)preferences.getLong(email, 0);
+    }
+
+    @Override
+    public void deleteEmailToIdMap(String email) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(email);
+        editor.apply();
+    }
+
+    @Override
+    public void resetCurrentLoginInfo() {
+        setCurrentLoginState(false);
+        setCurrentUserEmail(" ");
+        setCurrentUserId((long)0);
+        setCurrentUserPass(" ");
     }
 }

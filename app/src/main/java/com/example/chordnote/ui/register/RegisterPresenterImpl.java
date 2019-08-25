@@ -102,6 +102,8 @@ public class RegisterPresenterImpl<V extends RegisterView> extends BasePresenter
                             getMvpView().showToastText("注册成功");
                             getMvpView().closeRegisterView();
                         }
+
+                        getMvpView().showToastText(registerResponse.getMessage());
                     }
                 });
 

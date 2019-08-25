@@ -30,7 +30,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
     }
 
     @Override
-    public void Login(Map<String, String> request) {
+    public void login(Map<String, String> request) {
         getMvpView().showLoading();
 
         getDataManager().doLoginApiCall(NetworkUtils.generateRegisterRequestBody(request))
@@ -57,13 +57,15 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
                         } else if (code == 1000) {
                             getMvpView().showToastText("登陆成功");
 
-                            Bundle data = new Bundle();
+                            // 本地设置登陆状态为已登录，方便下次自动登陆
+                            getDataManager().setCurrentLoginState(true);
 
-                            data.putString("email", loginResponse.getUserEmail());
-                            data.putString("name", loginResponse.getUserName());
-                            data.putString("password", loginResponse.getPassword());
+                            Log.d(TAG, "onNext: " + getDataManager().getCurrentLoginState());
 
-                            getMvpView().loginSuccessfully(data);
+                            getDataManager().setCurrentUserEmail(loginResponse.getUserEmail());
+                            getDataManager().setCurrentUserPass(request.get("user_pwd"));
+
+                            getMvpView().onSuccessfullyLogin();
                         }
                     }
                 });

@@ -12,12 +12,18 @@ import com.example.chordnote.ui.login.LoginView;
 import com.example.chordnote.ui.main.me.MePresenter;
 import com.example.chordnote.ui.main.me.MePresenterImpl;
 import com.example.chordnote.ui.main.me.MeView;
+import com.example.chordnote.ui.main.study.StudyPresenter;
+import com.example.chordnote.ui.main.study.StudyPresenterImpl;
+import com.example.chordnote.ui.main.study.StudyView;
 import com.example.chordnote.ui.register.RegisterPresenter;
 import com.example.chordnote.ui.register.RegisterPresenterImpl;
 import com.example.chordnote.ui.register.RegisterView;
 import com.example.chordnote.ui.splash.SplashPresenter;
 import com.example.chordnote.ui.splash.SplashPresenterImpl;
 import com.example.chordnote.ui.splash.SplashView;
+import com.example.chordnote.ui.userinfo.UserInfoPresenter;
+import com.example.chordnote.ui.userinfo.UserInfoPresenterImpl;
+import com.example.chordnote.ui.userinfo.UserInfoView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -49,6 +55,16 @@ public class ActivityModule {
     @Provides
     MePresenter<MeView> provideMePresenter(DataManager manager) {
         return new MePresenterImpl<>(manager);
+    }
+
+    @Provides
+    StudyPresenter<StudyView> provideStudyPresenter(DataManager manager) {
+        return new StudyPresenterImpl<>(manager);
+    }
+
+    @Provides
+    UserInfoPresenter<UserInfoView> provideUserInfoPresenter(DataManager manager) {
+        return new UserInfoPresenterImpl<>(manager);
     }
 
 }

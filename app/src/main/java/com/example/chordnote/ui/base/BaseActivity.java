@@ -16,6 +16,7 @@ import com.example.chordnote.R;
 import com.example.chordnote.di.component.ActivityComponent;
 import com.example.chordnote.di.component.DaggerActivityComponent;
 import com.example.chordnote.di.module.ActivityModule;
+import com.example.chordnote.utils.NetworkUtils;
 
 public class BaseActivity extends AppCompatActivity
         implements MvpView, BaseFragment.Callback {
@@ -59,6 +60,11 @@ public class BaseActivity extends AppCompatActivity
     public void showToastText(String string) {
         Toast.makeText(this, string, Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public boolean isConnected() {
+        return NetworkUtils.isNetWorkAvailable(this);
     }
 
     @Override

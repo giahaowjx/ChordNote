@@ -1,5 +1,9 @@
 package com.example.chordnote.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,4 +24,14 @@ public final class NetworkUtils {
         return requestBodyMap;
     }
 
+    /**
+     * 判断是否联网
+     * @param context
+     * @return 联网状态
+     */
+    public static boolean isNetWorkAvailable(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return networkInfo.isConnected();
+    }
 }

@@ -4,6 +4,7 @@ import com.example.chordnote.data.network.model.CheckCodeResponse;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterRequest;
 import com.example.chordnote.data.network.model.RegisterResponse;
+import com.example.chordnote.data.network.model.UserInformationResponse;
 
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PartMap;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -32,5 +34,8 @@ public interface NetworkService {
     @Multipart
     @POST("auth/")
     Observable<LoginResponse> postLoginRequest(@PartMap Map<String, RequestBody> requestBodyMap);
+
+    @GET("user_information/")
+    Observable<UserInformationResponse> getUserInformationRequest(@Query("email") String email);
 
 }

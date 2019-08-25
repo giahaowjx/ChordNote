@@ -8,5 +8,5 @@ public interface LoginView extends MvpView {
 
     void openRegisterActivity();
 
-    void loginSuccessfully(Bundle data);
+    void onSuccessfullyLogin();
 }

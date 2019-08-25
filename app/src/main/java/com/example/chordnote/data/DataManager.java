@@ -6,6 +6,7 @@ import com.example.chordnote.data.network.ApiHelper;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterResponse;
+import com.example.chordnote.data.network.model.UserInformationResponse;
 import com.example.chordnote.data.prefs.PreferencesHelper;
 
 import java.util.List;
@@ -83,6 +84,12 @@ public class DataManager implements DataManagerApi {
     }
 
     @Override
+    public Observable<UserInformationResponse> doGetUserInformationApiCall(String email) {
+        return apiHelper.doGetUserInformationApiCall(email);
+    }
+
+    // Shared Preference Interface
+    @Override
     public void setEmailToIdMap(String email, long id) {
         preferencesHelper.setEmailToIdMap(email, id);
     }
@@ -105,5 +112,15 @@ public class DataManager implements DataManagerApi {
     @Override
     public List<User> getUser(String id) {
         return dbHelper.getUser(id);
+    }
+
+    @Override
+    public void deleteEmailToIdMap(String email) {
+
+    }
+
+    @Override
+    public void resetCurrentLoginInfo() {
+        preferencesHelper.resetCurrentLoginInfo();
     }
 }

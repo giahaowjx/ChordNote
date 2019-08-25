@@ -3,6 +3,7 @@ package com.example.chordnote.data.network;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
+import com.example.chordnote.data.network.model.UserInformationResponse;
 import com.example.chordnote.utils.AppSetting;
 
 import java.util.Map;
@@ -69,4 +70,8 @@ public class ApiHelperImpl implements ApiHelper {
         return service.getCheckCode(email);
     }
 
+    @Override
+    public Observable<UserInformationResponse> doGetUserInformationApiCall(String email) {
+        return service.getUserInformationRequest(email);
+    }
 }

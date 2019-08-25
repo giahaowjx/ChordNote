@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface LoginPresenter<V extends MvpView> extends MvpPresenter<V> {
 
-    void Login(Map<String, String> request);
+    void login(Map<String, String> request);
 
 }
