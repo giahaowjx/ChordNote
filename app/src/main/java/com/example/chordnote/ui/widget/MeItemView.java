@@ -3,6 +3,7 @@ package com.example.chordnote.ui.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -67,6 +68,21 @@ public class MeItemView extends RelativeLayout {
         Glide.with(mContext)
                 .load(uri)
                 .placeholder(R.drawable.user_head)
+                .into(head);
+
+    }
+
+    public void setHead(Uri uri) {
+        Glide.with(mContext)
+                .load(uri)
+                .placeholder(R.drawable.user_head)
+                .into(head);
+    }
+
+    // 当没有设置头像时设置默认头像
+    public void setHead() {
+        Glide.with(mContext)
+                .load(R.drawable.user_head)
                 .into(head);
     }
 

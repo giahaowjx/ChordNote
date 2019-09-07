@@ -1,5 +1,6 @@
 package com.example.chordnote.data.network;
 
+import com.example.chordnote.data.network.model.CommonResponse;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -73,5 +75,10 @@ public class ApiHelperImpl implements ApiHelper {
     @Override
     public Observable<UserInformationResponse> doGetUserInformationApiCall(String email) {
         return service.getUserInformationRequest(email);
+    }
+
+    @Override
+    public Observable<CommonResponse> doUpdateUserInfoApiCall(Map<String, RequestBody> map, MultipartBody.Part file) {
+        return service.putUserInfomationRequest(map, file);
     }
 }

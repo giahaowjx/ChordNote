@@ -1,5 +1,6 @@
 package com.example.chordnote.data.network;
 
+import com.example.chordnote.data.network.model.CommonResponse;
 import com.example.chordnote.data.network.model.LoginResponse;
 import com.example.chordnote.data.network.model.RegisterResponse;
 import com.example.chordnote.data.network.model.CheckCodeResponse;
@@ -7,6 +8,7 @@ import com.example.chordnote.data.network.model.UserInformationResponse;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import rx.Observable;
 
@@ -22,4 +24,7 @@ public interface ApiHelper {
     Observable<CheckCodeResponse> doSendCheckCodeApiCall(String  email);
 
     Observable<UserInformationResponse> doGetUserInformationApiCall(String email);
+
+    Observable<CommonResponse> doUpdateUserInfoApiCall(Map<String, RequestBody> map,
+                                                       MultipartBody.Part file);
 }

@@ -46,6 +46,7 @@ public class User {
     @Property(nameInDb = "user_img_url")
     private String imageUrl;
 
+
     @Generated(hash = 1461781515)
     public User(Long id, String email, String userName, int sex, String birthDate,
             String description, String imageUrl) {

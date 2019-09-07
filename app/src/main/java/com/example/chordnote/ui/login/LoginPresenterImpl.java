@@ -62,6 +62,7 @@ public class LoginPresenterImpl<V extends LoginView> extends BasePresenter<V> im
 
                             Log.d(TAG, "onNext: " + getDataManager().getCurrentLoginState());
 
+                            // 设置当前用户得账户基本信息
                             getDataManager().setCurrentUserEmail(loginResponse.getUserEmail());
                             getDataManager().setCurrentUserPass(request.get("user_pwd"));
 

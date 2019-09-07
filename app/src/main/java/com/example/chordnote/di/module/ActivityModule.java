@@ -1,11 +1,13 @@
 package com.example.chordnote.di.module;
 
 
+import android.content.Context;
 import android.provider.ContactsContract;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chordnote.data.DataManager;
+import com.example.chordnote.di.ActivityContext;
 import com.example.chordnote.ui.login.LoginPresenter;
 import com.example.chordnote.ui.login.LoginPresenterImpl;
 import com.example.chordnote.ui.login.LoginView;
@@ -63,8 +65,14 @@ public class ActivityModule {
     }
 
     @Provides
-    UserInfoPresenter<UserInfoView> provideUserInfoPresenter(DataManager manager) {
-        return new UserInfoPresenterImpl<>(manager);
+    UserInfoPresenter<UserInfoView> provideUserInfoPresenter(@ActivityContext Context context, DataManager manager) {
+        return new UserInfoPresenterImpl<>(context, manager);
+    }
+
+    @Provides
+    @ActivityContext
+    Context provideActivityContext() {
+        return mActivity;
     }
 
 }

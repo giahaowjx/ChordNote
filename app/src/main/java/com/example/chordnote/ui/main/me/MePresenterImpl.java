@@ -73,13 +73,16 @@ public class MePresenterImpl<V extends MeView> extends BasePresenter<V> implemen
                                 // 插入或修改本地存储的用户数据
                                 long id = getDataManager().getIdUsingEmail(user.getEmail());
                                 if (id == 0) {
+                                    // 若id为0，说明该用户是第一次在该设备登陆，保存用户信息并保存映射关系
                                     id = getDataManager().insertUser(user);
                                     getDataManager().setEmailToIdMap(user.getEmail(), id);
                                 } else {
+                                    // 若不为0则用户在该设备登陆过，修改用户数据
                                     user.setId(id);
                                     getDataManager().insertUser(user);
                                 }
 
+                                getDataManager().setCurrentUserNickName(user.getUserName());
                                 getMvpView().changeUserInfoView(user.getUserName(), user.getImageUrl());
 
                                 Log.d(TAG, "onNext: " + user.getUserName());

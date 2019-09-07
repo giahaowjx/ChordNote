@@ -59,7 +59,7 @@ public class CommonBar extends FrameLayout {
             barTextBtn.setText(typedArray.getText(R.styleable.CommonBar_button_name));
         }
 
-        barTitleText.setText(typedArray.getText(R.styleable.CommonBar_name));
+        barTitleText.setText(typedArray.getText(R.styleable.CommonBar_bar_title));
 
     }
 

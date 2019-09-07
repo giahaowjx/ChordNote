@@ -54,7 +54,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_toLeftOf="@id/detail_img"
-        android:layout_toStartOf="@id/detail_img"/>
+        android:layout_toStartOf="@id/detail_img"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <ImageView
         android:id="@+id/line_img"

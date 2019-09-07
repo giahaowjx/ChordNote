@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        app:show_more="false"
-        app:name="用户资料"/>
+        app:show_more_btn="false"
+        app:bar_title="用户资料"/>
 
     <com.example.chordnote.ui.widget.MeItemView
         android:id="@+id/user_info_item_head"

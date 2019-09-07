@@ -18,6 +18,8 @@ import com.example.chordnote.di.component.DaggerActivityComponent;
 import com.example.chordnote.di.module.ActivityModule;
 import com.example.chordnote.utils.NetworkUtils;
 
+import java.io.File;
+
 public class BaseActivity extends AppCompatActivity
         implements MvpView, BaseFragment.Callback {
 
@@ -84,6 +86,11 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void onFragmentDetached(String tag) {
 
+    }
+
+    @Override
+    public File getCacheDir() {
+        return getExternalCacheDir();
     }
 
 }

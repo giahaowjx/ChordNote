@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,16 @@ import androidx.annotation.StringRes;
 import com.example.chordnote.ChordNoteApp;
 import com.example.chordnote.R;
 import com.example.chordnote.di.component.ActivityComponent;
-import com.example.chordnote.di.component.DaggerActivityComponent;
 import com.example.chordnote.di.module.ActivityModule;
 import com.example.chordnote.utils.NetworkUtils;
+
+import java.io.File;
 
 import butterknife.Unbinder;
 
 public class BaseFragment extends Fragment implements MvpView {
+
+    private static final String TAG = "BaseFragment";
 
     private BaseActivity mActivity;
     protected Unbinder unbinder;
@@ -31,6 +35,8 @@ public class BaseFragment extends Fragment implements MvpView {
 
     public ActivityComponent getActivityComponent() {
         if (mActivity != null) {
+
+            Log.d(TAG, "getActivityComponent: ");
             return mActivity.getActivityComponent();
         }
         return null;
@@ -124,5 +130,10 @@ public class BaseFragment extends Fragment implements MvpView {
         void onFragmentAttached();
 
         void onFragmentDetached(String tag);
+    }
+
+    @Override
+    public File getCacheDir() {
+        return mActivity.getCacheDir();
     }
 }

@@ -29,4 +29,5 @@ public interface ActivityComponent {
     void inject(StudyFragment fragment);
 
     void inject(UserInfoActivity activity);
+
 }

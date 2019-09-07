@@ -120,6 +120,8 @@ public class MeFragment extends BaseFragment implements MeView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
+        
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -181,6 +183,19 @@ public class MeFragment extends BaseFragment implements MeView {
                 }
                 break;
             case USER_INFO:
+                if (resultCode == RESULT_OK) {
+                    boolean isDirty = data.getBooleanExtra("isDirty", false);
+                    boolean isLogout = data.getBooleanExtra("isLogout", false);
+
+                    if (isDirty) {
+                        presenter.showUserBriefInfo();
+                    }
+
+                    if (isLogout) {
+
+                    }
+
+                }
                 break;
             default:
                 break;
@@ -196,6 +211,15 @@ public class MeFragment extends BaseFragment implements MeView {
                 .into(userHeadImg);
 
         userNameText.setText(name);
+    }
+
+    public void resetUserInfoView() {
+        Glide.with(this)
+                .load(R.drawable.user_head)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(userHeadImg);
+
+        userNameText.setText("请登录");
     }
 
     /**

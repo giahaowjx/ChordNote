@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chordnote">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".ChordNoteApp"
         android:allowBackup="true"
@@ -13,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.input.InputActivity"></activity>
         <activity android:name=".ui.userinfo.UserInfoActivity" />
-        <activity android:name=".ui.information.UserInforActivity" />
+        <activity android:name=".ui.information.UserInfoActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.splash.SplashActivity">
@@ -26,9 +30,19 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main" />
-    </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <provider
+            android:authorities="com.example.chordnote.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+
+        </provider>
+
+    </application>
 
 </manifest>
