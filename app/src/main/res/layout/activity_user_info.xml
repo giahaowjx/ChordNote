@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chordnote.ui.userinfo.UserInfoActivity">
+
+    <com.example.chordnote.ui.widget.CommonBar
+        android:id="@+id/user_info_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:show_more_btn="false"
+        app:bar_title="用户资料"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_bar"
+        android:layout_marginTop="10dp"
+        app:name="头像"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_item_head"
+        app:name="昵称"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_below="@id/user_info_item_name"
+        app:name="邮箱"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_item_email"
+        app:name="性别"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_birth_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_item_sex"
+        app:name="出生年月"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_info_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_item_birth_date"
+        app:name="个性签名"
+        app:show_detail="true"
+        app:show_line="true"/>
+
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出账号"
+        android:textColor="#FF0000"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"/>
+
+</RelativeLayout>

@@ -11,4 +11,13 @@
 
     </declare-styleable>
 
+    <declare-styleable name="CommonBar">
+
+        <attr name="show_more_btn" format="boolean"/>
+        <attr name="button_name" format="string"/>
+        <attr name="show_text_btn" format="boolean"/>
+        <attr name="bar_title" format="string"/>
+
+    </declare-styleable>
+
 </resources>

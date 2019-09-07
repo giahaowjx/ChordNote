@@ -13,6 +13,7 @@ import com.example.chordnote.R;
 import com.example.chordnote.ui.base.BaseActivity;
 import com.example.chordnote.ui.main.MainActivity;
 import com.example.chordnote.ui.register.RegisterActivity;
+import com.example.chordnote.ui.widget.CommonBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +41,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @BindView(R.id.user_register_btn)
     Button registerBtn;
 
+    @BindView(R.id.login_common_bar)
+    CommonBar loginCommonBar;
+
     @Inject
     LoginPresenter<LoginView> presenter;
 
@@ -55,6 +59,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         getActivityComponent().inject(this);
 
         presenter.onAttach(this);
+
+        getSupportActionBar().hide();
 
     }
 
@@ -97,15 +103,16 @@ public class LoginActivity extends BaseActivity implements LoginView {
         request.put("email", email);
         request.put("user_pwd", passwrod);
 
-        presenter.Login(request);
+        presenter.login(request);
     }
 
     @Override
-    public void loginSuccessfully(Bundle data) {
+    public void onSuccessfullyLogin() {
+
         Intent intent = new Intent();
 
-        intent.putExtras(data);
         setResult(RESULT_OK, intent);
+
         finish();
     }
 

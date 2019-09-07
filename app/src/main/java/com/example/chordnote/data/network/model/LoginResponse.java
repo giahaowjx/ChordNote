@@ -17,25 +17,25 @@ public class LoginResponse {
     @SerializedName("email")
     private String userEmail;
 
-    @Expose
-    @SerializedName("user_name")
-    private String userName;
+//    @Expose
+//    @SerializedName("user_name")
+//    private String userName;
 
     @Expose
     @SerializedName("msg")
     private String message;
 
-    @Expose
-    @SerializedName("user_pwd")
-    private String password;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    @Expose
+//    @SerializedName("user_pwd")
+//    private String password;
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 //
 //    @Expose
 //    @SerializedName("profile_pic_url")
@@ -49,9 +49,9 @@ public class LoginResponse {
         this.userEmail = userEmail;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
 
     public void setMessage(String message) {
         this.message = message;
@@ -65,9 +65,9 @@ public class LoginResponse {
         return userEmail;
     }
 
-    public String getUserName() {
-        return userName;
-    }
+//    public String getUserName() {
+//        return userName;
+//    }
 
     public String getMessage() {
         return message;

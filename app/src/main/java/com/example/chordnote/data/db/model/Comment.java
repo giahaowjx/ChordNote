@@ -34,6 +34,9 @@ public class Comment {
     @Generated(hash = 1903578761)
     private transient CommentDao myDao;
 
+    @Generated(hash = 251390918)
+    private transient Long user__resolvedKey;
+
     @Generated(hash = 1437212594)
     public Comment(Long id, String commentText, long userId, long periodId) {
         this.id = id;
@@ -77,9 +80,6 @@ public class Comment {
     public void setPeriodId(long periodId) {
         this.periodId = periodId;
     }
-
-    @Generated(hash = 251390918)
-    private transient Long user__resolvedKey;
 
     /** To-one relationship, resolved on first access. */
     @Generated(hash = 115391908)
@@ -156,5 +156,4 @@ public class Comment {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getCommentDao() : null;
     }
-
 }

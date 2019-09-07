@@ -6,13 +6,13 @@ public interface PreferencesHelper {
 
     void setCurrentLoginState(boolean state);
 
-    Long getCurrentUserId();
-
-    void setCurrentUserId(Long id);
-
     String getCurrentUserEmail();
 
     void setCurrentUserEmail(String email);
+
+    String getCurrentUserNickName();
+
+    void setCurrentUserNickName(String name);
 
     String getCurrentUserPass();
 
@@ -21,5 +21,9 @@ public interface PreferencesHelper {
     void setEmailToIdMap(String email, long id);
 
     Long getIdUsingEmail(String email);
+
+    void deleteEmailToIdMap(String email);
+
+    void resetCurrentLoginInfo();
 
 }

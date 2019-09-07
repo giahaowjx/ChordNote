@@ -36,7 +36,7 @@
 
     </RelativeLayout>
 
-    <com.example.chordnote.ui.View.MeItemView
+    <com.example.chordnote.ui.widget.MeItemView
         android:id="@+id/app_setting_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         app:show_line="true"
         android:layout_marginTop="15dp"/>
 
-    <com.example.chordnote.ui.View.MeItemView
+    <com.example.chordnote.ui.widget.MeItemView
         android:id="@+id/user_dynamic_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         app:show_detail="true"
         app:show_line="true" />
 
-    <com.example.chordnote.ui.View.MeItemView
+    <com.example.chordnote.ui.widget.MeItemView
         android:id="@+id/user_like_dynamic_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

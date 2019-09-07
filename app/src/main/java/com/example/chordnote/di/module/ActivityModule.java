@@ -1,23 +1,31 @@
 package com.example.chordnote.di.module;
 
 
+import android.content.Context;
 import android.provider.ContactsContract;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chordnote.data.DataManager;
+import com.example.chordnote.di.ActivityContext;
 import com.example.chordnote.ui.login.LoginPresenter;
 import com.example.chordnote.ui.login.LoginPresenterImpl;
 import com.example.chordnote.ui.login.LoginView;
 import com.example.chordnote.ui.main.me.MePresenter;
 import com.example.chordnote.ui.main.me.MePresenterImpl;
 import com.example.chordnote.ui.main.me.MeView;
+import com.example.chordnote.ui.main.study.StudyPresenter;
+import com.example.chordnote.ui.main.study.StudyPresenterImpl;
+import com.example.chordnote.ui.main.study.StudyView;
 import com.example.chordnote.ui.register.RegisterPresenter;
 import com.example.chordnote.ui.register.RegisterPresenterImpl;
 import com.example.chordnote.ui.register.RegisterView;
 import com.example.chordnote.ui.splash.SplashPresenter;
 import com.example.chordnote.ui.splash.SplashPresenterImpl;
 import com.example.chordnote.ui.splash.SplashView;
+import com.example.chordnote.ui.userinfo.UserInfoPresenter;
+import com.example.chordnote.ui.userinfo.UserInfoPresenterImpl;
+import com.example.chordnote.ui.userinfo.UserInfoView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -49,6 +57,22 @@ public class ActivityModule {
     @Provides
     MePresenter<MeView> provideMePresenter(DataManager manager) {
         return new MePresenterImpl<>(manager);
+    }
+
+    @Provides
+    StudyPresenter<StudyView> provideStudyPresenter(DataManager manager) {
+        return new StudyPresenterImpl<>(manager);
+    }
+
+    @Provides
+    UserInfoPresenter<UserInfoView> provideUserInfoPresenter(@ActivityContext Context context, DataManager manager) {
+        return new UserInfoPresenterImpl<>(context, manager);
+    }
+
+    @Provides
+    @ActivityContext
+    Context provideActivityContext() {
+        return mActivity;
     }
 
 }

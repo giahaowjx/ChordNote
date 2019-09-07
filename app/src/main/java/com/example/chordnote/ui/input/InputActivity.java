@@ -1,4 +1,4 @@
-package com.example.chordnote.ui.information;
+package com.example.chordnote.ui.input;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.chordnote.R;
 
-public class UserInforActivity extends AppCompatActivity {
+public class InputActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_infor);
+        setContentView(R.layout.activity_input);
     }
 }

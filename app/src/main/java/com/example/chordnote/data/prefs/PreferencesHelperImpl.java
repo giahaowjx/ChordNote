@@ -14,25 +14,13 @@ public class PreferencesHelperImpl implements PreferencesHelper {
 
     @Override
     public boolean getCurrentLoginState() {
-        return preferences.getBoolean("login_state",false);
+        return preferences.getBoolean("loginState",false);
     }
 
     @Override
     public void setCurrentLoginState(boolean state) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("loginState",state);
-        editor.apply();
-    }
-
-    @Override
-    public Long getCurrentUserId() {
-        return (Long)preferences.getLong("userId",0);
-    }
-
-    @Override
-    public void setCurrentUserId(Long id) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putLong("userId",id);
         editor.apply();
     }
 
@@ -72,5 +60,32 @@ public class PreferencesHelperImpl implements PreferencesHelper {
     @Override
     public Long getIdUsingEmail(String email) {
         return (Long)preferences.getLong(email, 0);
+    }
+
+    @Override
+    public void deleteEmailToIdMap(String email) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(email);
+        editor.apply();
+    }
+
+    @Override
+    public void resetCurrentLoginInfo() {
+        setCurrentLoginState(false);
+        setCurrentUserEmail(" ");
+        setCurrentUserPass(" ");
+        setCurrentUserNickName(" ");
+    }
+
+    @Override
+    public String getCurrentUserNickName() {
+        return preferences.getString("nickname", " ");
+    }
+
+    @Override
+    public void setCurrentUserNickName(String name) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("nickname", name);
+        editor.apply();
     }
 }

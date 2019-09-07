@@ -6,4 +6,7 @@ public interface MeView extends MvpView {
 
     void openLoginActivity();
 
+    void changeUserInfoView(String name, String uri);
+
+    void openUserInfoActivity();
 }
