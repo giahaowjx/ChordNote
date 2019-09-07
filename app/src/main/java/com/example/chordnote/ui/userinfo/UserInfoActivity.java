@@ -1,12 +1,18 @@
 package com.example.chordnote.ui.userinfo;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -21,6 +27,7 @@ import com.example.chordnote.ui.widget.MeItemView;
 
 
 import javax.inject.Inject;
+import javax.net.ssl.ManagerFactoryParameters;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +39,7 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
 
     public final static int CAMERA = 1;
 
-    public final static int ALBUMN = 2;
+    public final static int ALBUM = 2;
 
     @BindView(R.id.user_info_item_head)
     MeItemView head;
@@ -112,7 +119,7 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
     public void setUserSex(int sex) {
         if (sex == 1) {
             this.sex.setData("男");
-        } else if (sex == 0) {
+        } else if (sex == 2) {
             this.sex.setData("女");
         } else {
             this.sex.setData("保密");
@@ -177,11 +184,41 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
 
                     @Override
                     public void onClickAlbumBtn() {
+                        Log.d(TAG, "onClickAlbumBtn: ");
 
+                        if (ContextCompat.checkSelfPermission(UserInfoActivity.this,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.
+                                PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(UserInfoActivity.this, new
+                                    String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                        } else {
+                            openAlbum();
+                        }
                     }
                 });
 
         imgDialog.show(getSupportFragmentManager(), TAG);
+    }
+
+    public void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        startActivityForResult(intent, ALBUM);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();
+                } else {
+                    showToastText("请允许应用拥有写外存的权限");
+                }
+                break;
+            default:
+        }
     }
 
     @OnClick(R.id.user_info_item_name)
@@ -210,14 +247,25 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
 
     }
 
-    @OnClick(R.id.user_info_item_email)
-    public void onClickUserInfoItemEmail(View view) {
-
-    }
-
     @OnClick(R.id.user_info_item_description)
     public void onClickUserInfoItemDesc(View view) {
+        final EditText edit = new EditText(this);
+        new AlertDialog.Builder(this).setTitle("请输入")
+                .setView(edit)
+                .setPositiveButton("保存", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 保存用户的个人签名
+                        String desc = edit.getText().toString();
+                        if (desc.length() == 0) {
+                            showToastText("请输入个人签名");
+                        } else {
+                            presenter.uploadUserDesc(desc);
+                        }
 
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @OnClick(R.id.user_info_item_birth_date)
@@ -237,14 +285,19 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
 
                     // 将获取的文件保存
                     presenter.saveBitmap(UserInfoActivity.this, imgUri);
-
+                    Log.d(TAG, "onActivityResult: after save bitmap");
                     // 上传新头像
                     presenter.uploadHeadImg(imgUri);
                 }
                 break;
-            case ALBUMN:
+            case ALBUM:
                 if (resultCode == RESULT_OK) {
 
+                    Log.d(TAG, "onActivityResult: before upload head img from album" + data.getData());
+
+                    presenter.uploadHeadImg(data.getData());
+
+                    imgDialog.dismissDialog(TAG);
                 }
                 break;
             default:

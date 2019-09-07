@@ -18,6 +18,8 @@ public interface UserInfoPresenter<V extends UserInfoView> extends MvpPresenter<
 
     void uploadUserName(String name);
 
+    void uploadUserDesc(String desc);
+
     Uri iniImgFile(Context context);
 
     void saveBitmap(Context context, Uri uri);

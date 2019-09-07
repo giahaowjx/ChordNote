@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chordnote.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,6 +69,7 @@ public class MeItemView extends RelativeLayout {
         Glide.with(mContext)
                 .load(uri)
                 .placeholder(R.drawable.user_head)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(head);
 
     }
@@ -76,6 +78,7 @@ public class MeItemView extends RelativeLayout {
         Glide.with(mContext)
                 .load(uri)
                 .placeholder(R.drawable.user_head)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(head);
     }
 

@@ -43,7 +43,7 @@ public interface NetworkService {
     Observable<UserInformationResponse> getUserInformationRequest(@Query("email") String email);
 
     @Multipart
-    @PUT("/user_information/")
+    @PUT("user_information/")
     Observable<CommonResponse> putUserInfomationRequest(@PartMap Map<String, RequestBody> map,
-                                                        @Part MultipartBody.Part file);
+                                                        @Part("image") MultipartBody.Part file);
 }
