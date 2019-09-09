@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.example.chordnote.R;
@@ -25,6 +27,8 @@ import com.example.chordnote.ui.base.BaseActivity;
 import com.example.chordnote.ui.userinfo.dialog.ChooseImgDialog;
 import com.example.chordnote.ui.widget.MeItemView;
 
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 import javax.net.ssl.ManagerFactoryParameters;
@@ -174,12 +178,8 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
                         imgUri = presenter.iniImgFile(UserInfoActivity.this);
 
                         Log.d(TAG, "onClickCameraBtn: " + imgUri);
-                        // 启动拍照界面
-                        Intent intent = new Intent();
-                        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-                        startActivityForResult(intent, CAMERA);
+
+                        openCamera();
                     }
 
                     @Override
@@ -200,8 +200,21 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
         imgDialog.show(getSupportFragmentManager(), TAG);
     }
 
+    public void openCamera() {
+        // 启动拍照界面
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+
+        Log.d(TAG, "openCamera: " + intent.toString());
+
+        startActivityForResult(intent, CAMERA);
+    }
+
     public void openAlbum() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
         startActivityForResult(intent, ALBUM);
     }
@@ -270,24 +283,55 @@ public class UserInfoActivity extends BaseActivity implements UserInfoView {
 
     @OnClick(R.id.user_info_item_birth_date)
     public void onClickUserInfoItemBirth(View view) {
+        String date = birth.getData();
 
+        // 日期时间
+        int year, month, day;
+
+        if (date.length() > 0) {
+            // 获取用户的生日日期
+            String[] dateInfo = date.split("/");
+
+            year = Integer.valueOf(dateInfo[0]);
+            month = Integer.valueOf(dateInfo[1]);
+            day = Integer.valueOf(dateInfo[2]);
+        } else {
+            // 用户没有设置过生日，默认先显示当前的日期
+            Calendar calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        // 调用时间选择器
+        new DatePickerDialog(UserInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                // 设置了日期后上传用户的生日然后更新界面
+                presenter.uploadUserBirth(year + "/" + month + "/" + dayOfMonth);
+
+
+            }
+        }, year, month, day).show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: 1");
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d(TAG, "onActivityResult: 2" + requestCode);
         switch (requestCode) {
             case CAMERA:
                 if (resultCode == RESULT_OK) {
-                    // 关闭对话框
-                    imgDialog.dismissDialog(TAG);
-
                     // 将获取的文件保存
-                    presenter.saveBitmap(UserInfoActivity.this, imgUri);
+//                    presenter.saveBitmap(UserInfoActivity.this, imgUri);
                     Log.d(TAG, "onActivityResult: after save bitmap");
                     // 上传新头像
                     presenter.uploadHeadImg(imgUri);
+
+                    // 关闭对话框
+                    imgDialog.dismissDialog(TAG);
                 }
                 break;
             case ALBUM:

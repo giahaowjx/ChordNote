@@ -205,7 +205,7 @@ public class MeFragment extends BaseFragment implements MeView {
     @Override
     public void changeUserInfoView(String name, String uri) {
 
-        if (!uri.equals("http://212.64.92.236:10000/media/")) {
+        if (uri != null) {
             Glide.with(this)
                     .load(uri)
                     .placeholder(R.drawable.user_head)

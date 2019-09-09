@@ -89,4 +89,7 @@ public class MeItemView extends RelativeLayout {
                 .into(head);
     }
 
+    public String getData() {
+        return data.getText().toString();
+    }
 }

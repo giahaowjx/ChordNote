@@ -59,7 +59,7 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d(TAG, "onError: ");
+                            Log.d(TAG, "onError: " + e.getMessage());
                         }
 
                         @Override
@@ -73,7 +73,7 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
 
                             String uri = user.getImageUrl();
 
-                            if (!uri.equals("http://212.64.92.236:10000/media/")) {
+                            if (uri != null) {
                                 Log.d(TAG, "onNext: 有头像");
                                 
                                 getMvpView().setUserUri(user.getImageUrl());
@@ -99,7 +99,7 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
 
                 String uri = user.getImageUrl();
 
-                if (!uri.equals("http://212.64.92.236:10000/media/")) {
+                if (uri != null) {
                     getMvpView().setUserUri(user.getImageUrl());
                 } else {
                     getMvpView().setUserUri();
@@ -255,6 +255,52 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
                             }
                         }
                     });
+        }
+    }
+
+    @Override
+    public void uploadUserBirth(String birth) {
+        if (!getMvpView().isConnected()) {
+            // 如果没有网就显示没网无法上传
+            getMvpView().showToastText("没有网络！请联网后重新修改");
+        } else {
+            // 获取用户信息更新网络请求的必要字段
+            Map<String, String> request = getUpdateUserInfoRequestHeader();
+            request.put("birth_date", birth);
+
+            getMvpView().showLoading();
+
+            // 发起网络请求
+            getDataManager().doUpdateUserInfoApiCall(NetworkUtils.generateRegisterRequestBody(request), null)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<CommonResponse>() {
+                        @Override
+                        public void onCompleted() {
+                            Log.d(TAG, "onCompleted: ");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "onError: ");
+                        }
+
+                        @Override
+                        public void onNext(CommonResponse commonResponse) {
+                            Log.d(TAG, "onNext: ");
+
+                            if (commonResponse.getCode() == 1000) {
+                                // 成功上传后修改本地用户信息
+                                getMvpView().showToastText("修改成功");
+                                getMvpView().isDirty(true);
+                                getMvpView().setUserBirthDate(birth);
+                            } else if (commonResponse.getCode() == 1001) {
+                                getMvpView().showToastText("修改失败");
+                            }
+                        }
+                    });
+
+            getMvpView().hideLoading();
         }
     }
 

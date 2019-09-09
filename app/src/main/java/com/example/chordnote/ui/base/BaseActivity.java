@@ -2,6 +2,7 @@ package com.example.chordnote.ui.base;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import java.io.File;
 
 public class BaseActivity extends AppCompatActivity
         implements MvpView, BaseFragment.Callback {
+
+    private static final String TAG = "BaseActivity";
 
     private ActivityComponent mActivityComponent;
 
@@ -93,4 +96,18 @@ public class BaseActivity extends AppCompatActivity
         return getExternalCacheDir();
     }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.d(TAG, "onStop: " + toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, "onDestroy: " + this.toString());
+    }
 }

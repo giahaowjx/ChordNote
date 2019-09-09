@@ -45,5 +45,5 @@ public interface NetworkService {
     @Multipart
     @PUT("user_information/")
     Observable<CommonResponse> putUserInfomationRequest(@PartMap Map<String, RequestBody> map,
-                                                        @Part("image") MultipartBody.Part file);
+                                                        @Part MultipartBody.Part file);
 }
