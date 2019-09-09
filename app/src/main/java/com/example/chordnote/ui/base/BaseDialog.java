@@ -28,7 +28,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
     private BaseActivity mActivity;
 
-    private Unbinder unbinder;
+    protected Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -101,10 +101,6 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
         return null;
     }
 
-    public void setUnBinder(Unbinder unBinder) {
-        unbinder = unBinder;
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -152,14 +148,10 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
     @Override
     public void dismissDialog(String tag) {
         dismiss();
-        getBaseActivity().onFragmentDetached(tag);
     }
 
     @Override
     public void onDestroy() {
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
         super.onDestroy();
     }
 

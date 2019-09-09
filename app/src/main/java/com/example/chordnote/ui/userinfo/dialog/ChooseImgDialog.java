@@ -1,7 +1,9 @@
 package com.example.chordnote.ui.userinfo.dialog;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.chordnote.R;
 import com.example.chordnote.ui.base.BaseDialog;
+import com.example.chordnote.ui.userinfo.UserInfoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,8 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChooseImgDialog extends BaseDialog {
+
+    private static final String TAG = "ChooseImgDialog";
 
     @BindView(R.id.choose_image_camera)
     CircleImageView cameraCircleImg;
@@ -37,8 +42,6 @@ public class ChooseImgDialog extends BaseDialog {
 
     private int themeResId;
 
-    private Unbinder unbinder;
-
     public ChooseImgDialog(@NonNull Context context, int themeResId, OnClickListener listener) {
         this.context = context;
         this.themeResId = themeResId;
@@ -53,7 +56,7 @@ public class ChooseImgDialog extends BaseDialog {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_choose_image, container, false);
 
-        setUnBinder(ButterKnife.bind(this, view));
+        unbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -88,4 +91,5 @@ public class ChooseImgDialog extends BaseDialog {
 
         void onClickAlbumBtn();
     }
+
 }

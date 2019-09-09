@@ -192,7 +192,7 @@ public class MeFragment extends BaseFragment implements MeView {
                     }
 
                     if (isLogout) {
-
+                        resetUserInfoView();
                     }
 
                 }
@@ -204,11 +204,14 @@ public class MeFragment extends BaseFragment implements MeView {
 
     @Override
     public void changeUserInfoView(String name, String uri) {
-        Glide.with(this)
-                .load(uri)
-                .placeholder(R.drawable.user_head)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(userHeadImg);
+
+        if (uri != null) {
+            Glide.with(this)
+                    .load(uri)
+                    .placeholder(R.drawable.user_head)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(userHeadImg);
+        }
 
         userNameText.setText(name);
     }

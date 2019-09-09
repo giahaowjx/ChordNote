@@ -59,7 +59,7 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.d(TAG, "onError: ");
+                            Log.d(TAG, "onError: " + e.getMessage());
                         }
 
                         @Override
@@ -69,7 +69,17 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
                             // 将获取的信息设置到界面上
                             User user = userInformationResponse.getUserInformation();
 
-                            getMvpView().setUserUri(user.getImageUrl());
+                            Log.d(TAG, "onNext: " + user.getImageUrl());
+
+                            String uri = user.getImageUrl();
+
+                            if (uri != null) {
+                                Log.d(TAG, "onNext: 有头像");
+                                
+                                getMvpView().setUserUri(user.getImageUrl());
+                            } else {
+                                getMvpView().setUserUri();
+                            }
                             getMvpView().setUserName(user.getUserName());
                             getMvpView().setUserEmail(user.getEmail());
                             getMvpView().setUserSex(user.getSex());
@@ -87,7 +97,13 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
             } else {
                 User user = users.get(0);
 
-                getMvpView().setUserUri(user.getImageUrl());
+                String uri = user.getImageUrl();
+
+                if (uri != null) {
+                    getMvpView().setUserUri(user.getImageUrl());
+                } else {
+                    getMvpView().setUserUri();
+                }
                 getMvpView().setUserName(user.getUserName());
                 getMvpView().setUserEmail(user.getEmail());
                 getMvpView().setUserSex(user.getSex());
@@ -166,6 +182,7 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
         } else {
             File file = new File(FileUtils.getPathUsingUri(context, uri));
 
+            Log.d(TAG, "uploadHeadImg: before upload");
             // 上传图片
             Map<String, String> request = getUpdateUserInfoRequestHeader();
             getDataManager().doUpdateUserInfoApiCall(NetworkUtils.generateRegisterRequestBody(request),
@@ -185,12 +202,12 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
 
                         @Override
                         public void onNext(CommonResponse commonResponse) {
-                            Log.d(TAG, "onNext: ");
+                            Log.d(TAG, "onNext: upload image");
 
                             if (commonResponse.getCode() == 1000) {
                                 getMvpView().showToastText("修改成功!" + commonResponse.getMessage());
 
-                                getMvpView().setUserUri(uri);
+                                getMvpView().setUserUri(file.getAbsolutePath());
                                 getMvpView().isDirty(true);
                             } else if (commonResponse.getCode() == 1001) {
                                 getMvpView().showToastText(commonResponse.getMessage());
@@ -238,6 +255,95 @@ public class UserInfoPresenterImpl<V extends UserInfoView> extends BasePresenter
                             }
                         }
                     });
+        }
+    }
+
+    @Override
+    public void uploadUserBirth(String birth) {
+        if (!getMvpView().isConnected()) {
+            // 如果没有网就显示没网无法上传
+            getMvpView().showToastText("没有网络！请联网后重新修改");
+        } else {
+            // 获取用户信息更新网络请求的必要字段
+            Map<String, String> request = getUpdateUserInfoRequestHeader();
+            request.put("birth_date", birth);
+
+            getMvpView().showLoading();
+
+            // 发起网络请求
+            getDataManager().doUpdateUserInfoApiCall(NetworkUtils.generateRegisterRequestBody(request), null)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<CommonResponse>() {
+                        @Override
+                        public void onCompleted() {
+                            Log.d(TAG, "onCompleted: ");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "onError: ");
+                        }
+
+                        @Override
+                        public void onNext(CommonResponse commonResponse) {
+                            Log.d(TAG, "onNext: ");
+
+                            if (commonResponse.getCode() == 1000) {
+                                // 成功上传后修改本地用户信息
+                                getMvpView().showToastText("修改成功");
+                                getMvpView().isDirty(true);
+                                getMvpView().setUserBirthDate(birth);
+                            } else if (commonResponse.getCode() == 1001) {
+                                getMvpView().showToastText("修改失败");
+                            }
+                        }
+                    });
+
+            getMvpView().hideLoading();
+        }
+    }
+
+    @Override
+    public void uploadUserDesc(String desc) {
+        if (!getMvpView().isConnected()) {
+            // 如果没有网就显示没网无法上传
+            getMvpView().showToastText("没有网络！请联网后重新修改");
+        } else {
+            Map<String, String> request = getUpdateUserInfoRequestHeader();
+            request.put("description", desc);
+
+            getMvpView().showLoading();
+
+            getDataManager().doUpdateUserInfoApiCall(NetworkUtils.generateRegisterRequestBody(request),
+                    null)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<CommonResponse>() {
+                        @Override
+                        public void onCompleted() {
+                            Log.d(TAG, "onCompleted: ");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "onError: ");
+                        }
+
+                        @Override
+                        public void onNext(CommonResponse commonResponse) {
+                            Log.d(TAG, "onNext: ");
+
+                            if (commonResponse.getCode() == 1000) {
+                                getMvpView().showToastText("修改成功");
+                                getMvpView().isDirty(true);
+                                getMvpView().setUserDescription(desc);
+                            } else if (commonResponse.getCode() == 1001) {
+                                getMvpView().showToastText("修改失败");
+                            }
+                        }
+                    });
+            getMvpView().hideLoading();
         }
     }
 
