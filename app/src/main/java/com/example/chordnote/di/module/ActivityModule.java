@@ -11,12 +11,18 @@ import com.example.chordnote.di.ActivityContext;
 import com.example.chordnote.ui.login.LoginPresenter;
 import com.example.chordnote.ui.login.LoginPresenterImpl;
 import com.example.chordnote.ui.login.LoginView;
+import com.example.chordnote.ui.main.discover.DiscoverPresenter;
+import com.example.chordnote.ui.main.discover.DiscoverPresenterImpl;
+import com.example.chordnote.ui.main.discover.DiscoverView;
 import com.example.chordnote.ui.main.me.MePresenter;
 import com.example.chordnote.ui.main.me.MePresenterImpl;
 import com.example.chordnote.ui.main.me.MeView;
 import com.example.chordnote.ui.main.study.StudyPresenter;
 import com.example.chordnote.ui.main.study.StudyPresenterImpl;
 import com.example.chordnote.ui.main.study.StudyView;
+import com.example.chordnote.ui.period.PeriodPresenter;
+import com.example.chordnote.ui.period.PeriodPresenterImpl;
+import com.example.chordnote.ui.period.PeriodView;
 import com.example.chordnote.ui.register.RegisterPresenter;
 import com.example.chordnote.ui.register.RegisterPresenterImpl;
 import com.example.chordnote.ui.register.RegisterView;
@@ -67,6 +73,16 @@ public class ActivityModule {
     @Provides
     UserInfoPresenter<UserInfoView> provideUserInfoPresenter(@ActivityContext Context context, DataManager manager) {
         return new UserInfoPresenterImpl<>(context, manager);
+    }
+
+    @Provides
+    DiscoverPresenter<DiscoverView> provideDiscoverPresenter(DataManager manager){
+        return new DiscoverPresenterImpl<>(manager);
+    }
+
+    @Provides
+    PeriodPresenter<PeriodView> providePeriodPresenter(DataManager manager){
+        return new PeriodPresenterImpl<>(manager);
     }
 
     @Provides
