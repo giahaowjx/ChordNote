@@ -4,8 +4,10 @@ import com.example.chordnote.di.module.ActivityModule;
 import com.example.chordnote.di.scope.PerActivity;
 import com.example.chordnote.ui.login.LoginActivity;
 import com.example.chordnote.ui.main.MainActivity;
+import com.example.chordnote.ui.main.discover.DiscoverFragment;
 import com.example.chordnote.ui.main.me.MeFragment;
 import com.example.chordnote.ui.main.study.StudyFragment;
+import com.example.chordnote.ui.period.PeriodActivity;
 import com.example.chordnote.ui.register.RegisterActivity;
 import com.example.chordnote.ui.splash.SplashActivity;
 import com.example.chordnote.ui.userinfo.UserInfoActivity;
@@ -30,4 +32,7 @@ public interface ActivityComponent {
 
     void inject(UserInfoActivity activity);
 
+    void inject(DiscoverFragment fragment);
+
+    void inject(PeriodActivity activity);
 }

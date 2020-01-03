@@ -14,7 +14,7 @@ import okhttp3.RequestBody;
 
 public final class NetworkUtils {
 
-    public static final String IMAGE = "image/jpg";
+    public static final String IMAGE = "image/*";
 
     public static Map<String, RequestBody> generateRegisterRequestBody(Map<String, String> data) {
         Map<String, RequestBody> requestBodyMap = new HashMap<>();
