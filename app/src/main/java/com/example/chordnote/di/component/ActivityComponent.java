@@ -10,6 +10,8 @@ import com.example.chordnote.ui.main.study.StudyFragment;
 import com.example.chordnote.ui.period.PeriodActivity;
 import com.example.chordnote.ui.register.RegisterActivity;
 import com.example.chordnote.ui.splash.SplashActivity;
+import com.example.chordnote.ui.usercomment.UserCommentActivity;
+import com.example.chordnote.ui.userdynamic.UserDynamicActivity;
 import com.example.chordnote.ui.userinfo.UserInfoActivity;
 
 import dagger.Component;
@@ -35,4 +37,8 @@ public interface ActivityComponent {
     void inject(DiscoverFragment fragment);
 
     void inject(PeriodActivity activity);
+
+    void inject(UserCommentActivity activity);
+
+    void inject(UserDynamicActivity activity);
 }

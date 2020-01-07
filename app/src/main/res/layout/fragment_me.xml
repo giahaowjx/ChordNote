@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_loyalty_red_300_24dp"
-        app:name="我的收藏"
+        app:name="我的评论"
         app:show_detail="true"
         app:show_line="true" />
 

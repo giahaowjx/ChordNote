@@ -20,8 +20,8 @@ public interface PeriodPresenter<V extends PeriodView> extends MvpPresenter<V> {
     void deleteComment(int idPeriod);
 
     // 收藏评论
-    void collectComment(int idPeriod, String email);
+    void collectComment(int idComment, String email);
 
     // 取消收藏评论
-    void cancelCollectComment(int idPeriod, String email);
+    void cancelCollectComment(int idComment, String email);
 }

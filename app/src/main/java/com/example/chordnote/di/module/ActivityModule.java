@@ -29,6 +29,12 @@ import com.example.chordnote.ui.register.RegisterView;
 import com.example.chordnote.ui.splash.SplashPresenter;
 import com.example.chordnote.ui.splash.SplashPresenterImpl;
 import com.example.chordnote.ui.splash.SplashView;
+import com.example.chordnote.ui.usercomment.UserCommentPresenter;
+import com.example.chordnote.ui.usercomment.UserCommentPresenterImpl;
+import com.example.chordnote.ui.usercomment.UserCommentView;
+import com.example.chordnote.ui.userdynamic.UserDynamicPresenter;
+import com.example.chordnote.ui.userdynamic.UserDynamicPresenterImpl;
+import com.example.chordnote.ui.userdynamic.UserDynamicView;
 import com.example.chordnote.ui.userinfo.UserInfoPresenter;
 import com.example.chordnote.ui.userinfo.UserInfoPresenterImpl;
 import com.example.chordnote.ui.userinfo.UserInfoView;
@@ -83,6 +89,16 @@ public class ActivityModule {
     @Provides
     PeriodPresenter<PeriodView> providePeriodPresenter(DataManager manager){
         return new PeriodPresenterImpl<>(manager);
+    }
+
+    @Provides
+    UserCommentPresenter<UserCommentView> provideUserCommentPresenter(DataManager manager){
+        return new UserCommentPresenterImpl<>(manager);
+    }
+
+    @Provides
+    UserDynamicPresenter<UserDynamicView> provideUserDynamicPresenter(DataManager manager){
+        return new UserDynamicPresenterImpl<>(manager);
     }
 
     @Provides

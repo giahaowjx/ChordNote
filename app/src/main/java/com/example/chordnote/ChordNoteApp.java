@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.chordnote.data.DataManager;
-import com.example.chordnote.data.db.model.DaoSession;
 import com.example.chordnote.di.component.ApplicationComponent;
 import com.example.chordnote.di.component.DaggerApplicationComponent;
 import com.example.chordnote.di.module.ApplicationModule;

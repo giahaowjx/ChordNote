@@ -63,7 +63,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void showToastText(String string) {
-        Toast.makeText(this, string, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
 
     }
 
