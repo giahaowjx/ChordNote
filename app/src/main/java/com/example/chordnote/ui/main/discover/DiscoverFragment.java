@@ -16,10 +16,10 @@ import com.example.chordnote.ui.main.MainView;
 
 import javax.inject.Inject;
 
-public class DiscoverFragment extends BaseFragment implements MainView {
+public class DiscoverFragment extends BaseFragment implements DiscoverView {
 
     @Inject
-    private DiscoverPresenter<DiscoverView> presenter;
+    DiscoverPresenter<DiscoverView> presenter;
 
     private OnFragmentInteractionListener mListener;
 

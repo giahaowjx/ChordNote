@@ -16,7 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.period.PeriodActivity"></activity>
+        <activity
+            android:name=".ui.userdynamic.UserDynamicActivity"
+            android:label="@string/title_activity_user_dynamic"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.usercomment.UserCommentActivity"
+            android:label="@string/title_activity_user_comment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.period.PeriodActivity" />
         <activity android:name=".ui.input.InputActivity" />
         <activity android:name=".ui.userinfo.UserInfoActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
