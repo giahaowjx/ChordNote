@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chordnote.R;
+import com.example.chordnote.ui.collectDynamics.CollectDynamicActivity;
+import com.example.chordnote.ui.myDynamics.MyDynamicActivity;
 import com.example.chordnote.ui.userinfo.UserInfoActivity;
 import com.example.chordnote.ui.widget.MeItemView;
 import com.example.chordnote.ui.base.BaseFragment;
@@ -58,6 +60,9 @@ public class MeFragment extends BaseFragment implements MeView {
 
     @BindView(R.id.user_like_dynamic_menu)
     MeItemView userLikeDynamic;
+
+    @BindView(R.id.user_collect_comment_menu)
+    MeItemView userCollectComment;
 
     @Inject
     MePresenter<MeView> presenter;
@@ -145,11 +150,18 @@ public class MeFragment extends BaseFragment implements MeView {
 
     @OnClick(R.id.user_dynamic_menu)
     public void onClickUserDynamicMenu(View view) {
-
+        Intent intent = MyDynamicActivity.getIntent(getContext());
+        startActivity(intent);
     }
 
     @OnClick(R.id.user_like_dynamic_menu)
     public void onClickUserLikeDynamicMenu(View view) {
+        Intent intent = CollectDynamicActivity.getIntent(getContext());
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.user_collect_comment_menu)
+    public void onClickUserCollectCOmmentMenu(View view){
 
     }
 

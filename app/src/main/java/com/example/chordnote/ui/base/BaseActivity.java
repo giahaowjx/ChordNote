@@ -37,7 +37,6 @@ public class BaseActivity extends AppCompatActivity
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(((ChordNoteApp) getApplication()).getComponent())
                 .build();
-
         progressBar = new ProgressBar(this);
 
         progressBar.findViewById(R.id.pb_loading);

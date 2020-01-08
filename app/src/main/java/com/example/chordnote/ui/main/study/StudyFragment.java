@@ -13,13 +13,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.example.chordnote.R;
 import com.example.chordnote.ui.base.BaseFragment;
 import com.example.chordnote.ui.main.MainView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -37,18 +42,53 @@ import butterknife.ButterKnife;
 public class StudyFragment extends BaseFragment implements StudyView {
 
     // 测试用
-    List<BookInfo> list = new ArrayList<>();
+    PeriodListAdapter list;
 
     private static final String TAG = "StudyFragment";
 
     void init() {
-        for (int i = 1; i < 30; i++) {
-            list.add(new BookInfo("Book" + i, ""));
-        }
+        //存放组列表，每个组都要有一个对应的子列表，否则出错
+        List<Map<String, String>> groups = new ArrayList<>();
+        Map<String, String> group1 = new HashMap<>();
+        group1.put("group", "group1");//键，组名
+        Map<String, String> group2 = new HashMap<>();
+        group2.put("group", "group2");
+        groups.add(group1);//加入第一个组
+        groups.add(group2);//加入第二个组
+
+
+        //一个子列表
+        List<Map<String, String>> child1 = new ArrayList<>();
+        Map<String, String> child1Date1 = new HashMap<>();
+        child1Date1.put("child", "child1Date1");
+        Map<String, String> child1Date2 = new HashMap<>();
+        child1Date2.put("child", "child1Date2");
+        child1.add(child1Date1);//子列表第一项
+        child1.add(child1Date2);//子列表第二项
+
+        //一个子列表
+        List<Map<String, String>> child2 = new ArrayList<>();
+        Map<String, String> child2Date1 = new HashMap<>();
+        child2Date1.put("child", "child2Date1");
+        Map<String, String> child2Date2 = new HashMap<>();
+        child2Date2.put("child", "child2Date2");
+        child2.add(child2Date1);//子列表第一项
+        child2.add(child2Date2);//子列表第二项
+
+        //存放所有组的子列表
+        List<List<Map<String, String>>> childs = new ArrayList<>();
+        childs.add(child1);//第一个组的子列表
+        childs.add(child2);//第二个组的子列表
+
+        //创建适配器（Activity，组列表，组布局文件，组名键值对键，布局中组名显示位置
+        // 子列表，子列表布局文件，子列表项键值对键，布局中子列表项内容显示位置）
+        list = new PeriodListAdapter(
+                getContext(), groups, R.layout.group_study, new String[]{"group"}, new int[]{R.id.item_group_study},
+                childs, R.layout.child_study, new String[]{"child"}, new int[]{R.id.item_child_study});
     }
 
     @BindView(R.id.book_list_rec)
-    RecyclerView bookListRec;
+    ExpandableListView bookListRec;
 
     @BindView(R.id.study_fragment_refresh)
     SwipeRefreshLayout studyFragmentRefresh;
@@ -83,6 +123,8 @@ public class StudyFragment extends BaseFragment implements StudyView {
 
         getActivityComponent().inject(this);
 
+        // 创建测试用适配器
+        init();
     }
 
     @Override
@@ -96,9 +138,16 @@ public class StudyFragment extends BaseFragment implements StudyView {
         // 绑定presenter
         presenter.onAttach(this);
 
-        // 为RecyclerView添加Manager设置两列，设置适配器
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        bookListRec.setLayoutManager(layoutManager);
+        // 为目录设置适配器
+        bookListRec.setAdapter(list);
+        bookListRec.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                showToastText(((TextView) view.findViewById(R.id.item_child_study)).getText().toString());
+
+                return false;
+            }
+        });
 
         presenter.refresh();
 

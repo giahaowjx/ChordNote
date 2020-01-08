@@ -67,6 +67,10 @@ public class CommonBar extends FrameLayout {
         barTextBtn.setOnClickListener(listener);
     }
 
+    public void setBarTitleText(String title){
+        barTitleText.setText(title);
+    }
+
     @OnClick(R.id.bar_return_btn)
     public void onClickBarReturnBtn(View v) {
         ((Activity)getContext()).finish();

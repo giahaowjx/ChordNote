@@ -4,6 +4,7 @@ import com.example.chordnote.ui.base.MvpPresenter;
 
 public interface DiscoverPresenter<V extends DiscoverView> extends MvpPresenter<V> {
 
+<<<<<<< Updated upstream
     // 获得动态
     void getDynamics();
 
@@ -24,5 +25,8 @@ public interface DiscoverPresenter<V extends DiscoverView> extends MvpPresenter<
 
     // 取消收藏动态
     void cancelCollectDynamic(int idDynamic, String email);
+=======
+    void plusGoodNum(int id);
+>>>>>>> Stashed changes
 
 }

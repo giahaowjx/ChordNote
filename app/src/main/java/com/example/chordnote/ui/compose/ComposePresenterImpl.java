@@ -21,7 +21,7 @@ public class ComposePresenterImpl<V extends ComposeView> extends BasePresenter<V
     private static final String TAG = "RegisterPresenterImpl";
 
     @Inject
-    public RegisterPresenterImpl(DataManager dataManager) {
+    public ComposePresenterImpl(DataManager dataManager) {
         super(dataManager);
     }
 

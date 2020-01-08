@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.di.ActivityContext;
+import com.example.chordnote.ui.collectDynamics.CollectDynamicPresenter;
+import com.example.chordnote.ui.collectDynamics.CollectDynamicPresenterImpl;
+import com.example.chordnote.ui.collectDynamics.CollectDynamicView;
 import com.example.chordnote.ui.login.LoginPresenter;
 import com.example.chordnote.ui.login.LoginPresenterImpl;
 import com.example.chordnote.ui.login.LoginView;
@@ -20,6 +23,9 @@ import com.example.chordnote.ui.main.me.MeView;
 import com.example.chordnote.ui.main.study.StudyPresenter;
 import com.example.chordnote.ui.main.study.StudyPresenterImpl;
 import com.example.chordnote.ui.main.study.StudyView;
+import com.example.chordnote.ui.myDynamics.MyDynamicPresenter;
+import com.example.chordnote.ui.myDynamics.MyDynamicPresenterImpl;
+import com.example.chordnote.ui.myDynamics.MyDynamicView;
 import com.example.chordnote.ui.period.PeriodPresenter;
 import com.example.chordnote.ui.period.PeriodPresenterImpl;
 import com.example.chordnote.ui.period.PeriodView;
@@ -92,6 +98,7 @@ public class ActivityModule {
     }
 
     @Provides
+<<<<<<< Updated upstream
     UserCommentPresenter<UserCommentView> provideUserCommentPresenter(DataManager manager){
         return new UserCommentPresenterImpl<>(manager);
     }
@@ -99,6 +106,15 @@ public class ActivityModule {
     @Provides
     UserDynamicPresenter<UserDynamicView> provideUserDynamicPresenter(DataManager manager){
         return new UserDynamicPresenterImpl<>(manager);
+=======
+    CollectDynamicPresenter<CollectDynamicView> provideCollectDynamicPresenter(DataManager manager){
+        return new CollectDynamicPresenterImpl<>(manager);
+    }
+
+    @Provides
+    MyDynamicPresenter<MyDynamicView> provideMyDynamicPresenter(DataManager manager){
+        return new MyDynamicPresenterImpl<>(manager);
+>>>>>>> Stashed changes
     }
 
     @Provides

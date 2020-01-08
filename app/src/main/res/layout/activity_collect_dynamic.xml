@@ -1,23 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:background="@color/gray"
-    tools:context="com.example.chordnote.ui.main.discover.DiscoverFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.example.chordnote.ui.widget.CommonBar
+        android:id="@+id/collect_dynamic_commonbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"/>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/study_fragment_refresh"
+            android:id="@+id/collect_dynamic_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dynamic_list_view"
+                android:id="@+id/collect_dynamic_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawSelectorOnTop="true" />

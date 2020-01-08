@@ -13,10 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ExpandableListView
                 android:id="@+id/book_list_rec"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:drawSelectorOnTop="true" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

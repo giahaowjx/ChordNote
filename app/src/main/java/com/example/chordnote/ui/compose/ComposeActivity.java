@@ -34,15 +34,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ComposeActivity extends BaseActivity implements ComposeView {
-    private Button button[];        // 按钮数组
-    private PianoMusic utils;       // 工具类
+public class ComposeActivity{ //extends BaseActivity implements ComposeView {
+    /*private Button button[];        // 按钮数组
+    //private PianoMusic utils;       // 工具类
     private View parent;            // 父视图
     private int buttonId[];         // 按钮id
     private boolean havePlayed[];   // 是否已经播放了声音，当手指在同一个按钮内滑动，且已经发声，就为true
-    /*    private View ParentKeys;        // 全部按钮的视图
+    *//*    private View ParentKeys;        // 全部按钮的视图
         private View UpKeys;            // 上排白色按钮所在的视图
-        private View DownKeys;          // 下排白色按钮所在的视图*/
+        private View DownKeys;          // 下排白色按钮所在的视图*//*
     private int pressedkey[];       // 已按下的按键
 
     @Override
@@ -184,16 +184,16 @@ public class ComposeActivity extends BaseActivity implements ComposeView {
             }
         });
 
-/*        ParentKeys = (View) findViewById(R.id.ParentKeys);
+*//*        ParentKeys = (View) findViewById(R.id.ParentKeys);
         UpKeys = (View) findViewById(R.id.UpKeys);
-        DownKeys = (View) findViewById(R.id.DownKeys);*/
+        DownKeys = (View) findViewById(R.id.DownKeys);*//*
     }
 
-   /*
+   *//*
     public static Intent getIntent(Context context) {
         return new Intent(context, ComposeActivity.class);
     }
-     */
+     *//*
 
     private void init() {
         // 新建工具类
@@ -316,5 +316,5 @@ public class ComposeActivity extends BaseActivity implements ComposeView {
     @Override
     public void closeRegisterView() {
         finish();
-    }
+    }*/
 }

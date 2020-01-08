@@ -59,9 +59,23 @@
         android:id="@+id/user_like_dynamic_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< Updated upstream
         app:icon="@drawable/ic_loyalty_red_300_24dp"
         app:name="我的评论"
+=======
+        app:icon="@drawable/collect_dynamic"
+        app:name="收藏动态"
+>>>>>>> Stashed changes
         app:show_detail="true"
         app:show_line="true" />
+
+    <com.example.chordnote.ui.widget.MeItemView
+        android:id="@+id/user_collect_comment_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/collect_comment"
+        app:name="收藏评论"
+        app:show_detail="true"
+        app:show_line="true"/>
 
 </LinearLayout>
