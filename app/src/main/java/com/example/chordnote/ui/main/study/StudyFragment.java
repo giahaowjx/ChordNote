@@ -1,6 +1,7 @@
 package com.example.chordnote.ui.main.study;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import com.example.chordnote.R;
 import com.example.chordnote.data.network.model.Chapter;
 import com.example.chordnote.ui.base.BaseFragment;
 import com.example.chordnote.ui.main.MainView;
+import com.example.chordnote.ui.period.PeriodActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +37,6 @@ import butterknife.ButterKnife;
 
 public class StudyFragment extends BaseFragment implements StudyView {
 
-    // 测试用
-    PeriodListAdapter list;
-
     private static final String TAG = "StudyFragment";
 
     void init() {
@@ -50,7 +49,9 @@ public class StudyFragment extends BaseFragment implements StudyView {
             p.add("和弦和和弦的字母标记");
             p.add("声部进行的原则");
             p.add("和弦外音");
+            int[] x = {0,1,2,3};
             chapter.setPeriodTitleList(p);
+            chapter.setPeriodIdList(x);
 
             chapterList.add(chapter);
 
@@ -68,7 +69,9 @@ public class StudyFragment extends BaseFragment implements StudyView {
             p1.add("第七章 转位低音与交替低音");
             p1.add("第八章 流行音乐的曲式");
 
+            int[] x1 = {0,1,2,3,4,5,6,7,8};
             chapter1.setPeriodTitleList(p1);
+            chapter1.setPeriodIdList(x1);
 
             chapterList.add(chapter1);
         }
@@ -124,36 +127,43 @@ public class StudyFragment extends BaseFragment implements StudyView {
         // 绑定presenter
         presenter.onAttach(this);
 
-            PeriodListAdapter adapter = new PeriodListAdapter(getContext(), chapterList);
+        PeriodListAdapter adapter = new PeriodListAdapter(getContext(), chapterList);
 
-            // 为目录设置适配器
-            bookListRec.setAdapter(adapter);
-            bookListRec.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                @Override
-                public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+        // 为目录设置适配器
+        bookListRec.setAdapter(adapter);
+        bookListRec.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
 
-                    return false;
-                }
-            });
+                return false;
+            }
+        });
 
-            bookListRec.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                @Override
-                public void onGroupExpand(int i) {
-                    int count = adapter.getGroupCount();
-                    for (int j = 0; j < count; j++){
-                        if (j != i){
-                            bookListRec.collapseGroup(j);
-                        }
+        bookListRec.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int i) {
+                int count = adapter.getGroupCount();
+                for (int j = 0; j < count; j++){
+                    if (j != i){
+                        bookListRec.collapseGroup(j);
                     }
                 }
-            });
+            }
+        });
 
-            bookListRec.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                @Override
-                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                    return false;
-                }
-            });
+        bookListRec.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+
+                // i 是目录下标，i1是child下标
+                int periodId = adapter.getPeriodId(i, i1);
+
+                Intent intent = PeriodActivity.getIntent(getActivity(), periodId);
+                startActivity(intent);
+
+                return false;
+            }
+        });
 
         presenter.refresh();
 

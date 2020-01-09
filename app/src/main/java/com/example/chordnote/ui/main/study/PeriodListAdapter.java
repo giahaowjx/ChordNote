@@ -61,6 +61,13 @@ public class PeriodListAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+    public int getPeriodId(int groupPosition, int childPosition){
+        if (groupString != null) {
+            return groupString.get(groupPosition).getPeriodIdList()[childPosition];
+        }
+        return 0;
+    }
+
     @Override
     public boolean hasStableIds(){
         return true;
