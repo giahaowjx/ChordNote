@@ -4,10 +4,7 @@ import android.util.Log;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.data.network.model.CommonResponse;
-<<<<<<< Updated upstream
 import com.example.chordnote.data.network.model.DynamicsResponse;
-=======
->>>>>>> Stashed changes
 import com.example.chordnote.ui.base.BasePresenter;
 import com.example.chordnote.utils.NetworkUtils;
 
@@ -23,18 +20,13 @@ import rx.schedulers.Schedulers;
 public class DiscoverPresenterImpl<V extends DiscoverView> extends BasePresenter<V> implements DiscoverPresenter<V> {
 
     private static final String TAG = "DiscoverPresenterImpl";
-<<<<<<< Updated upstream
 
-=======
-    
->>>>>>> Stashed changes
     @Inject
     public DiscoverPresenterImpl(DataManager manager) {
         super(manager);
     }
 
     @Override
-<<<<<<< Updated upstream
     public void getDynamics() {
         getDataManager().doGetDynamicsApiCall()
                 .subscribeOn(Schedulers.io())
@@ -142,11 +134,11 @@ public class DiscoverPresenterImpl<V extends DiscoverView> extends BasePresenter
 
     @Override
     public void cancelLikeDynamic(int idDynamic) {
-        getDataManager().doPutCancelLikeDynamicApiCall(idDynamic)
-=======
+        getDataManager().doPutCancelLikeDynamicApiCall(idDynamic);
+    }
+
     public void plusGoodNum(int id) {
         getDataManager().doPutLikeDynamicApiCall(id)
->>>>>>> Stashed changes
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CommonResponse>() {
@@ -163,7 +155,6 @@ public class DiscoverPresenterImpl<V extends DiscoverView> extends BasePresenter
                     @Override
                     public void onNext(CommonResponse commonResponse) {
                         Log.d(TAG, "onNext: ");
-<<<<<<< Updated upstream
 
                         // TODO
                     }
@@ -217,8 +208,6 @@ public class DiscoverPresenterImpl<V extends DiscoverView> extends BasePresenter
                         Log.d(TAG, "onNext: ");
 
                         // TODO
-=======
->>>>>>> Stashed changes
                     }
                 });
     }

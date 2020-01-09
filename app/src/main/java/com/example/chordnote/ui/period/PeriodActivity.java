@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.chordnote.R;
-<<<<<<< Updated upstream
 import com.example.chordnote.ui.base.BaseActivity;
-=======
 import com.example.chordnote.ui.register.RegisterActivity;
->>>>>>> Stashed changes
 
 import javax.inject.Inject;
 
@@ -19,11 +16,9 @@ public class PeriodActivity extends BaseActivity implements PeriodView {
 
     @Inject
     PeriodPresenter<PeriodView> presenter;
-<<<<<<< Updated upstream
-=======
 
     private int periodId;
->>>>>>> Stashed changes
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

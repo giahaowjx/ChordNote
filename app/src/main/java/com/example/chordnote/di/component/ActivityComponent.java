@@ -40,13 +40,7 @@ public interface ActivityComponent {
 
     void inject(PeriodActivity activity);
 
-<<<<<<< Updated upstream
-    void inject(UserCommentActivity activity);
-
-    void inject(UserDynamicActivity activity);
-=======
     void inject(CollectDynamicActivity activity);
 
     void inject(MyDynamicActivity activity);
->>>>>>> Stashed changes
 }

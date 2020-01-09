@@ -21,13 +21,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-<<<<<<< Updated upstream
-public class DiscoverFragment extends BaseFragment implements DiscoverView {
-=======
-import butterknife.BindView;
 
-public class DiscoverFragment extends BaseFragment implements MainView {
->>>>>>> Stashed changes
+public class DiscoverFragment extends BaseFragment implements DiscoverView {
 
     public void init(){
         test = new ArrayList<>();

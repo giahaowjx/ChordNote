@@ -98,15 +98,6 @@ public class ActivityModule {
     }
 
     @Provides
-<<<<<<< Updated upstream
-    UserCommentPresenter<UserCommentView> provideUserCommentPresenter(DataManager manager){
-        return new UserCommentPresenterImpl<>(manager);
-    }
-
-    @Provides
-    UserDynamicPresenter<UserDynamicView> provideUserDynamicPresenter(DataManager manager){
-        return new UserDynamicPresenterImpl<>(manager);
-=======
     CollectDynamicPresenter<CollectDynamicView> provideCollectDynamicPresenter(DataManager manager){
         return new CollectDynamicPresenterImpl<>(manager);
     }
@@ -114,7 +105,6 @@ public class ActivityModule {
     @Provides
     MyDynamicPresenter<MyDynamicView> provideMyDynamicPresenter(DataManager manager){
         return new MyDynamicPresenterImpl<>(manager);
->>>>>>> Stashed changes
     }
 
     @Provides
