@@ -16,8 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.myDynamics.MyDynamicActivity"></activity>
-        <activity android:name=".ui.collectDynamics.CollectDynamicActivity" />
+        <activity android:name=".ui.booklist.BookListActivity"></activity>
+        <activity android:name=".ui.mydynamics.MyDynamicActivity" />
+        <activity android:name=".ui.collectdynamics.CollectDynamicActivity" />
         <activity android:name=".ui.period.PeriodActivity" />
         <activity android:name=".ui.input.InputActivity" />
         <activity android:name=".ui.userinfo.UserInfoActivity" />

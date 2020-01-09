@@ -17,7 +17,8 @@
                 android:id="@+id/book_list_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawSelectorOnTop="true" />
+                android:drawSelectorOnTop="true"
+                android:layoutDirection="rtl"/> />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

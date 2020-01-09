@@ -1,6 +1,5 @@
-package com.example.chordnote.ui.collectDynamics;
+package com.example.chordnote.ui.collectdynamics;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +16,6 @@ import com.example.chordnote.ui.widget.CommonBar;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class CollectDynamicActivity extends BaseActivity {
 

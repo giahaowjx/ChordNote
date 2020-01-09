@@ -1,4 +1,4 @@
-package com.example.chordnote.ui.myDynamics;
+package com.example.chordnote.ui.mydynamics;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import com.example.chordnote.R;
 import com.example.chordnote.data.network.model.Dynamic;
 import com.example.chordnote.ui.base.BaseActivity;
-import com.example.chordnote.ui.collectDynamics.CollectDynamicActivity;
 import com.example.chordnote.ui.main.discover.DynamicAdapter;
 import com.example.chordnote.ui.widget.CommonBar;
 

@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
@@ -37,6 +38,8 @@ MeFragment.OnFragmentInteractionListener{
 
     private MenuItem menuItem;
 
+    private Menu bookMenu;
+
     // 底部导航栏的监听器实例
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,18 +50,22 @@ MeFragment.OnFragmentInteractionListener{
                 case R.id.navigation_compose:
                     viewPager.setCurrentItem(0);
                     getSupportActionBar().setTitle(R.string.title_compose);
+                    bookMenu.setGroupVisible(0, false);
                     return true;
                 case R.id.navigation_study:
                     viewPager.setCurrentItem(1);
                     getSupportActionBar().setTitle(R.string.title_study);
+                    bookMenu.setGroupVisible(0, true);
                     return true;
                 case R.id.navigation_discover:
                     viewPager.setCurrentItem(2);
                     getSupportActionBar().setTitle(R.string.title_discovery);
+                    bookMenu.setGroupVisible(0, false);
                     return true;
                 case R.id.navigation_me:
                     viewPager.setCurrentItem(3);
                     getSupportActionBar().setTitle(R.string.title_me);
+                    bookMenu.setGroupVisible(0, false);
                     return true;
             }
             return false;
@@ -117,6 +124,28 @@ MeFragment.OnFragmentInteractionListener{
     public static Intent getIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }
+
+    //此方法的作用是创建一个选项菜单，我们要重写这个方法
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        bookMenu = menu;
+        //加载菜单文件
+        getMenuInflater().inflate(R.menu.study_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //这里是一个switch语句,主要通过menu文件中的id值来确定点了哪个菜单，然后做对应的操作，这里的menu是指你加载的那个菜单文件
+        switch (item.getItemId()) {
+            case R.id.study_booklist:
+                // 获取书本列表。打开书本列表activity
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

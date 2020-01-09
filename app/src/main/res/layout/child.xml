@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="40dip"
-    android:background="#FFFFFF" >
+    android:background="@color/gray" >
 
     <ImageView
         android:id="@+id/groupIcon"
@@ -18,6 +18,6 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dip"
         android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </LinearLayout>

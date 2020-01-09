@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.example.chordnote.R;
+import com.example.chordnote.data.network.model.Chapter;
 import com.example.chordnote.ui.base.BaseFragment;
 import com.example.chordnote.ui.main.MainView;
 
@@ -31,14 +32,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link StudyFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link StudyFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class StudyFragment extends BaseFragment implements StudyView {
 
     // 测试用
@@ -47,45 +41,37 @@ public class StudyFragment extends BaseFragment implements StudyView {
     private static final String TAG = "StudyFragment";
 
     void init() {
-        //存放组列表，每个组都要有一个对应的子列表，否则出错
-        List<Map<String, String>> groups = new ArrayList<>();
-        Map<String, String> group1 = new HashMap<>();
-        group1.put("group", "group1");//键，组名
-        Map<String, String> group2 = new HashMap<>();
-        group2.put("group", "group2");
-        groups.add(group1);//加入第一个组
-        groups.add(group2);//加入第二个组
+            chapterList = new ArrayList<>();
 
+            Chapter chapter = new Chapter();
+            chapter.setTitle("基础理论");
+            List<String> p = new ArrayList<>();
+            p.add("音程");
+            p.add("和弦和和弦的字母标记");
+            p.add("声部进行的原则");
+            p.add("和弦外音");
+            chapter.setPeriodTitleList(p);
 
-        //一个子列表
-        List<Map<String, String>> child1 = new ArrayList<>();
-        Map<String, String> child1Date1 = new HashMap<>();
-        child1Date1.put("child", "child1Date1");
-        Map<String, String> child1Date2 = new HashMap<>();
-        child1Date2.put("child", "child1Date2");
-        child1.add(child1Date1);//子列表第一项
-        child1.add(child1Date2);//子列表第二项
+            chapterList.add(chapter);
 
-        //一个子列表
-        List<Map<String, String>> child2 = new ArrayList<>();
-        Map<String, String> child2Date1 = new HashMap<>();
-        child2Date1.put("child", "child2Date1");
-        Map<String, String> child2Date2 = new HashMap<>();
-        child2Date2.put("child", "child2Date2");
-        child2.add(child2Date1);//子列表第一项
-        child2.add(child2Date2);//子列表第二项
+            Chapter chapter1 = new Chapter();
+            chapter1.setTitle("流行音乐的和声");
 
-        //存放所有组的子列表
-        List<List<Map<String, String>>> childs = new ArrayList<>();
-        childs.add(child1);//第一个组的子列表
-        childs.add(child2);//第二个组的子列表
+            List<String> p1 = new ArrayList<>();
+            p1.add("绪论");
+            p1.add("第一章 功能和声的理论");
+            p1.add("第二章 正、副和弦的进行方向");
+            p1.add("第三章 离调进行");
+            p1.add("第四章 小调的和弦进行");
+            p1.add("第五章 终止进行");
+            p1.add("第六章 和声进行的力度与模式");
+            p1.add("第七章 转位低音与交替低音");
+            p1.add("第八章 流行音乐的曲式");
 
-        //创建适配器（Activity，组列表，组布局文件，组名键值对键，布局中组名显示位置
-        // 子列表，子列表布局文件，子列表项键值对键，布局中子列表项内容显示位置）
-        list = new PeriodListAdapter(
-                getContext(), groups, R.layout.group_study, new String[]{"group"}, new int[]{R.id.item_group_study},
-                childs, R.layout.child_study, new String[]{"child"}, new int[]{R.id.item_child_study});
-    }
+            chapter1.setPeriodTitleList(p1);
+
+            chapterList.add(chapter1);
+        }
 
     @BindView(R.id.book_list_rec)
     ExpandableListView bookListRec;
@@ -96,7 +82,7 @@ public class StudyFragment extends BaseFragment implements StudyView {
     @Inject
     StudyPresenter<StudyView> presenter;
 
-    private BookInfoAdapter adapter;
+    private List<Chapter> chapterList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -138,16 +124,36 @@ public class StudyFragment extends BaseFragment implements StudyView {
         // 绑定presenter
         presenter.onAttach(this);
 
-        // 为目录设置适配器
-        bookListRec.setAdapter(list);
-        bookListRec.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                showToastText(((TextView) view.findViewById(R.id.item_child_study)).getText().toString());
+            PeriodListAdapter adapter = new PeriodListAdapter(getContext(), chapterList);
 
-                return false;
-            }
-        });
+            // 为目录设置适配器
+            bookListRec.setAdapter(adapter);
+            bookListRec.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                @Override
+                public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+
+                    return false;
+                }
+            });
+
+            bookListRec.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                @Override
+                public void onGroupExpand(int i) {
+                    int count = adapter.getGroupCount();
+                    for (int j = 0; j < count; j++){
+                        if (j != i){
+                            bookListRec.collapseGroup(j);
+                        }
+                    }
+                }
+            });
+
+            bookListRec.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                    return false;
+                }
+            });
 
         presenter.refresh();
 
@@ -158,8 +164,8 @@ public class StudyFragment extends BaseFragment implements StudyView {
         return view;
     }
 
-    public void setAdapter(List<BookInfo> list) {
-        this.adapter = new BookInfoAdapter(list);
+    public void setAdapter(List<Chapter> list) {
+        this.chapterList = list;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -189,8 +195,9 @@ public class StudyFragment extends BaseFragment implements StudyView {
     }
 
     @Override
-    public void showBookInfoList(List<BookInfo> bookInfoList) {
-
+    public void showBookInfoList(List<Chapter> bookInfoList) {
+        setAdapter(bookInfoList);
+        bookListRec.setAdapter(new PeriodListAdapter(getContext(), chapterList));
     }
 
     /**

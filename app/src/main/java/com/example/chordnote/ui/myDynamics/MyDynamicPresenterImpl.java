@@ -1,8 +1,7 @@
-package com.example.chordnote.ui.myDynamics;
+package com.example.chordnote.ui.mydynamics;
 
 import com.example.chordnote.data.DataManager;
 import com.example.chordnote.ui.base.BasePresenter;
-import com.example.chordnote.ui.collectDynamics.CollectDynamicPresenter;
 
 import javax.inject.Inject;
 

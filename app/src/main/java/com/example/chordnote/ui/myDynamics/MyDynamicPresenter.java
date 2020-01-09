@@ -1,7 +1,6 @@
-package com.example.chordnote.ui.myDynamics;
+package com.example.chordnote.ui.mydynamics;
 
 import com.example.chordnote.ui.base.MvpPresenter;
-import com.example.chordnote.ui.collectDynamics.CollectDynamicView;
 
 public interface MyDynamicPresenter<V extends MyDynamicView> extends MvpPresenter<V> {
 }
