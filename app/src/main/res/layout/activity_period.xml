@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".ui.period.PeriodActivity">
 
+    <com.example.chordnote.ui.widget.CommonBar
+        android:id="@+id/period_commonbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/period_tablayout"
         android:layout_width="match_parent"

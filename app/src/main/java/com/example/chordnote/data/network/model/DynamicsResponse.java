@@ -3,6 +3,7 @@ package com.example.chordnote.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DynamicsResponse extends CommonResponse {
@@ -37,8 +38,8 @@ public class DynamicsResponse extends CommonResponse {
         this.previousUrl = previousUrl;
     }
 
-    public List<Dynamic> getUserDynamicList() {
-        return userDynamicList;
+    public ArrayList<Dynamic> getUserDynamicList() {
+        return new ArrayList<>(userDynamicList);
     }
 
     public void setUserDynamicList(List<Dynamic> userDynamicList) {

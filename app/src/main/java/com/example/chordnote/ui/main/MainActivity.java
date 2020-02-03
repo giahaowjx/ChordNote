@@ -9,12 +9,14 @@ import com.example.chordnote.R;
 import androidx.annotation.NonNull;
 
 import com.example.chordnote.ui.base.BaseActivity;
+import com.example.chordnote.ui.booklist.BookListActivity;
 import com.example.chordnote.ui.main.compose.ComposeFragment;
 import com.example.chordnote.ui.main.discover.DiscoverFragment;
 import com.example.chordnote.ui.main.me.MeFragment;
 import com.example.chordnote.ui.main.study.StudyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity implements MainView, ComposeFragm
 MeFragment.OnFragmentInteractionListener{
 
     private static final String TAG = "MainActivity";
+
+    public static final int BOOK_ACTIVITY = 6;
     
     @BindView(R.id.nav_view)
     BottomNavigationView navigation;
@@ -39,6 +43,8 @@ MeFragment.OnFragmentInteractionListener{
     private MenuItem menuItem;
 
     private Menu bookMenu;
+
+    private StudyFragment studyFragment;
 
     // 底部导航栏的监听器实例
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -83,7 +89,10 @@ MeFragment.OnFragmentInteractionListener{
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(ComposeFragment.newInstance("ChordNote","ChordNote"));
-        adapter.addFragment(StudyFragment.newInstance());
+
+        studyFragment = StudyFragment.newInstance();
+
+        adapter.addFragment(studyFragment);
         adapter.addFragment(DiscoverFragment.newInstance("ChordNote","ChordNote"));
         adapter.addFragment(MeFragment.newInstance(Long.valueOf(100)));
 
@@ -141,11 +150,28 @@ MeFragment.OnFragmentInteractionListener{
         switch (item.getItemId()) {
             case R.id.study_booklist:
                 // 获取书本列表。打开书本列表activity
+                Intent intent = BookListActivity.getIntent(this);
+                startActivityForResult(intent, BOOK_ACTIVITY);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case BOOK_ACTIVITY:
+                if (data != null){
+                    int idBook = data.getIntExtra("bookId", 0);
+                    if (idBook != 0){
+                        studyFragment.changeChapterList(idBook);
+                    }
+                }
+                break;
+        }
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

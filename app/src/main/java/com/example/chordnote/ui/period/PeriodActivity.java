@@ -15,6 +15,7 @@ import com.example.chordnote.ui.period.comment.CommentFragment;
 import com.example.chordnote.ui.period.periodcontent.PeriodContentFragment;
 import com.example.chordnote.ui.period.question.QuestionFragment;
 import com.example.chordnote.ui.register.RegisterActivity;
+import com.example.chordnote.ui.widget.CommonBar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.lang.reflect.Array;
@@ -33,6 +34,9 @@ public class PeriodActivity extends BaseActivity implements PeriodView {
 
     @BindView(R.id.period_tablayout)
     TabLayout tabLayout;
+
+    @BindView(R.id.period_commonbar)
+    CommonBar commonBar;
 
     private int periodId;
 
@@ -56,10 +60,11 @@ public class PeriodActivity extends BaseActivity implements PeriodView {
 
         Intent intent = getIntent();
         periodId = intent.getIntExtra("id", 0);
+        periodTitle = intent.getStringExtra("title");
 
         periodContentFragment = new PeriodContentFragment();
-        commentFragment = new CommentFragment();
-        questionFragment = new QuestionFragment();
+        questionFragment = QuestionFragment.newInstance(periodId);
+        commentFragment = CommentFragment.newInstance(periodId);
 
         List<BaseFragment> fragments = new ArrayList<>();
         List<String> tabTitle = new ArrayList<>();
@@ -69,8 +74,8 @@ public class PeriodActivity extends BaseActivity implements PeriodView {
         tabTitle.add("评论");
 
         fragments.add(periodContentFragment);
-        fragments.add(commentFragment);
         fragments.add(questionFragment);
+        fragments.add(commentFragment);
 
         adapter = new PeriodPagerAdapter(getSupportFragmentManager(), fragments, tabTitle);
 
@@ -78,12 +83,13 @@ public class PeriodActivity extends BaseActivity implements PeriodView {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        getSupportActionBar().setTitle("课时内容");
+        commonBar.setBarTitleText(periodTitle);
     }
 
-    public static Intent getIntent(Context context, int id) {
+    public static Intent getIntent(Context context, int id, String periodTitle) {
         Intent intent = new Intent(context, PeriodActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("title", periodTitle);
         return intent;
     }
 }

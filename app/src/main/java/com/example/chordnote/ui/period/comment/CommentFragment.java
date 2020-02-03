@@ -5,31 +5,53 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chordnote.R;
+import com.example.chordnote.data.network.model.Comment;
+import com.example.chordnote.data.network.model.Dynamic;
 import com.example.chordnote.ui.base.BaseFragment;
+import com.example.chordnote.ui.main.discover.DynamicAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CommentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CommentFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CommentFragment extends BaseFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CommentFragment extends BaseFragment implements CommentView {
+
+//    public void init(){
+//        comments = new ArrayList<>();
+//        Comment dynamic = new Comment();
+//        dynamic.setContent("乐理好难学");
+//        dynamic.setEmail("761497526@qq.com");
+//        dynamic.setLikeNum(100);
+//        dynamic.setNickName("giahao");
+//        Comment dynamic1 = new Comment();
+//        dynamic1.setContent("乐理好难学");
+//        dynamic1.setEmail("761497526@qq.com");
+//        dynamic1.setLikeNum(100);
+//        dynamic1.setNickName("giahao");
+//        comments.add(dynamic);
+//        comments.add(dynamic1);
+//    }
+
+    @Inject
+    CommentPresenter<CommentView> presenter;
+
+    @BindView(R.id.comment_list_view)
+    RecyclerView commentList;
+
+    private ArrayList<Comment> comments;
+
+    private int idPeriod;
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,38 +59,47 @@ public class CommentFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CommentFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CommentFragment newInstance(String param1, String param2) {
+
+    public static CommentFragment newInstance(int idPeriod) {
         CommentFragment fragment = new CommentFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("idPeriod", idPeriod);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        getActivityComponent().inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comment, container, false);
+        View view = inflater.inflate(R.layout.fragment_comment, container, false);
+
+        // 碎片中需要解绑控件
+        unbinder = ButterKnife.bind(this, view);
+
+        // 绑定presenter
+        presenter.onAttach(this);
+
+        // 获取课时id
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            idPeriod = bundle.getInt("idPeriod");
+
+            // 设置评论
+            presenter.setCommentList(idPeriod);
+        }
+//        init();
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -93,18 +124,18 @@ public class CommentFragment extends BaseFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+        presenter.onDetach();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void setCommentList(ArrayList<Comment> comments) {
+        this.comments = comments;
+
+        commentList.setAdapter(new CommentAdapter(getActivity(), comments));
+        commentList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

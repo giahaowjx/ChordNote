@@ -3,6 +3,7 @@ package com.example.chordnote.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsResponse extends CommonResponse {
@@ -13,8 +14,8 @@ public class CommentsResponse extends CommonResponse {
     @SerializedName("data")
     private List<Comment> commentList;
 
-    public List<Comment> getCommentList() {
-        return commentList;
+    public ArrayList<Comment> getCommentList() {
+        return new ArrayList<>(commentList);
     }
 
     public void setCommentList(List<Comment> commentList) {
