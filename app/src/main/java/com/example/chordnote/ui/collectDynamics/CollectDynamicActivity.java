@@ -17,7 +17,10 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class CollectDynamicActivity extends BaseActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CollectDynamicActivity extends BaseActivity implements CollectDynamicView {
 
     public void init(){
         dynamics = new ArrayList<>();
@@ -37,11 +40,15 @@ public class CollectDynamicActivity extends BaseActivity {
         dynamics.add(dynamic1);
     }
 
-    private RecyclerView colllectDynamics;
+    @BindView(R.id.collect_dynamic_list_view)
+    RecyclerView colllectDynamics;
 
-    private CommonBar bar;
+    @BindView(R.id.collect_dynamic_commonbar)
+    CommonBar bar;
 
     private ArrayList<Dynamic> dynamics;
+
+    private String email;
 
     @Inject
     CollectDynamicPresenter<CollectDynamicView> presenter;
@@ -51,19 +58,39 @@ public class CollectDynamicActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_dynamic);
 
-        init();
+        ButterKnife.bind(this);
 
-        colllectDynamics = findViewById(R.id.collect_dynamic_list_view);
+        getActivityComponent().inject(this);
+
+        presenter.onAttach(this);
+
         colllectDynamics.setLayoutManager(new LinearLayoutManager(this));
-        colllectDynamics.setAdapter(new DynamicAdapter(this, dynamics));
+
+        email = getIntent().getStringExtra("email");
+        if (email != null){
+            presenter.setDynamicList(email);
+        }
+
+//        init();
+
 
         getSupportActionBar().hide();
 
-        bar = findViewById(R.id.collect_dynamic_commonbar);
         bar.setBarTitleText("收藏动态");
     }
 
-    public static Intent getIntent(Context context){
-        return new Intent(context, CollectDynamicActivity.class);
+    public static Intent getIntent(Context context, String email){
+        Intent intent = new Intent(context, CollectDynamicActivity.class);
+
+        intent.putExtra("email", email);
+
+        return intent;
+    }
+
+    @Override
+    public void setDynamicList(ArrayList<Dynamic> dynamics) {
+        this.dynamics = dynamics;
+
+        colllectDynamics.setAdapter(new DynamicAdapter(this, dynamics));
     }
 }

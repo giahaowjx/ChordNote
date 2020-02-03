@@ -82,6 +82,9 @@ public class MePresenterImpl<V extends MeView> extends BasePresenter<V> implemen
                                     getDataManager().insertUser(user);
                                 }
 
+                                // 设置用户email
+                                getMvpView().setUserEmail(user.getEmail());
+
                                 getDataManager().setCurrentUserNickName(user.getUserName());
                                 getMvpView().changeUserInfoView(user.getUserName(), user.getImageUrl());
 
@@ -95,6 +98,9 @@ public class MePresenterImpl<V extends MeView> extends BasePresenter<V> implemen
                     Log.d(TAG, "showUserBriefInfo: " + "存在多个相同邮箱用户");
                     return;
                 }
+
+                // 设置用户email
+                getMvpView().setUserEmail(getDataManager().getCurrentUserEmail());
 
                 getMvpView().changeUserInfoView(user.get(0).getUserName(), user.get(0).getImageUrl());
 

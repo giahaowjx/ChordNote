@@ -9,4 +9,6 @@ public interface MeView extends MvpView {
     void changeUserInfoView(String name, String uri);
 
     void openUserInfoActivity();
+
+    void setUserEmail(String email);
 }

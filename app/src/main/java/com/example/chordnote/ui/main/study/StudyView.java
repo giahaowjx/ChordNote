@@ -9,4 +9,5 @@ public interface StudyView extends MvpView {
 
     void showBookInfoList(List<Chapter> bookInfoList);
 
+    void setChapterList(List<Chapter> chapterList);
 }

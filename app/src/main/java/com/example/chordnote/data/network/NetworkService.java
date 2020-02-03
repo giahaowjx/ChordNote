@@ -55,51 +55,42 @@ public interface NetworkService {
                                                         @Part MultipartBody.Part file);
 
     // 获得用户发布的动态
-    @Multipart
     @GET("moment_detail/")
-    Observable<DynamicsResponse> getUserDynamicsRequest(@Part("email") String email);
+    Observable<DynamicsResponse> getUserDynamicsRequest(@Query("email") String email);
 
     // 获取用户发布的评论
-    @Multipart
     @GET("comment_detail/")
-    Observable<CommentsResponse> getUserCommentsRequest(@Part("email") String email);
+    Observable<CommentsResponse> getUserCommentsRequest(@Query("email") String email);
 
     // 获得用户收藏的动态,collected = "collected"
-    @Multipart
     @GET("moment_detail/")
-    Observable<DynamicsResponse> getUserCollectDynamicsRequest(@Part("email") String email,
-                                                               @Part("type") String collected);
+    Observable<DynamicsResponse> getUserCollectDynamicsRequest(@Query("email") String email,
+                                                               @Query("type") String collected);
 
     // 获得用过户收藏的评论,collected = "collected"
-    @Multipart
     @GET("comment_detail/")
     Observable<CommentsResponse> getUserCollectCommentsRequest(@Part("email") String email,
                                                                @Part("type") String collected);
 
     // 获得book列表
-    @Multipart
     @GET("book/all")
     Observable<BookListResponse> getBookListRequest();
 
     // 获得book的chapter列表
-    @Multipart
     @GET("book/chapter/all")
-    Observable<ChapterListResponse> getChapterListRequest(@Part("id") int id);
+    Observable<ChapterListResponse> getChapterListRequest(@Query("id") int id);
 
     // 获取chapter的period信息
-    @Multipart
     @GET("book/period")
-    Observable<PeriodResponse> getPeriodInfoRequest(@Part("id") int id);
+    Observable<PeriodResponse> getPeriodInfoRequest(@Query("id") int id);
 
     // 获取period的question
-    @Multipart
     @GET("book/period/question")
-    Observable<QuestionsResponse> getQuestionsRequest(@Part("id") int id);
+    Observable<QuestionsResponse> getQuestionsRequest(@Query("id") int id);
 
     // 获取period的评论信息
-    @Multipart
     @GET("book/period.comment")
-    Observable<CommentsResponse> getCommentsRequest(@Part("id") int id);
+    Observable<CommentsResponse> getCommentsRequest(@Query("id") int id);
 
     // 发布评论
     @Multipart
@@ -123,7 +114,6 @@ public interface NetworkService {
     Observable<CommonResponse> deleteCollectCommentRequest(@Part("id_comment") int idComment,
                                                            @Part("email") String email);
     // 获取动态，一次十条
-    @Multipart
     @GET("moment/")
     Observable<DynamicsResponse> getDynamicsRequest();
 

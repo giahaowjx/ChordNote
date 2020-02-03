@@ -10,6 +10,9 @@ import com.example.chordnote.di.ActivityContext;
 import com.example.chordnote.ui.booklist.BookListPresenter;
 import com.example.chordnote.ui.booklist.BookListPresenterImpl;
 import com.example.chordnote.ui.booklist.BookListView;
+import com.example.chordnote.ui.collectcomments.CollectCommentPresenter;
+import com.example.chordnote.ui.collectcomments.CollectCommentPresenterImpl;
+import com.example.chordnote.ui.collectcomments.CollectCommentView;
 import com.example.chordnote.ui.collectdynamics.CollectDynamicPresenter;
 import com.example.chordnote.ui.collectdynamics.CollectDynamicPresenterImpl;
 import com.example.chordnote.ui.collectdynamics.CollectDynamicView;
@@ -31,6 +34,15 @@ import com.example.chordnote.ui.mydynamics.MyDynamicView;
 import com.example.chordnote.ui.period.PeriodPresenter;
 import com.example.chordnote.ui.period.PeriodPresenterImpl;
 import com.example.chordnote.ui.period.PeriodView;
+import com.example.chordnote.ui.period.comment.CommentPresenter;
+import com.example.chordnote.ui.period.comment.CommentPresenterImpl;
+import com.example.chordnote.ui.period.comment.CommentView;
+import com.example.chordnote.ui.period.periodcontent.PeriodContentPresenter;
+import com.example.chordnote.ui.period.periodcontent.PeriodContentPresenterImpl;
+import com.example.chordnote.ui.period.periodcontent.PeriodContentView;
+import com.example.chordnote.ui.period.question.QuestionPresenter;
+import com.example.chordnote.ui.period.question.QuestionPresenterImpl;
+import com.example.chordnote.ui.period.question.QuestionView;
 import com.example.chordnote.ui.register.RegisterPresenter;
 import com.example.chordnote.ui.register.RegisterPresenterImpl;
 import com.example.chordnote.ui.register.RegisterView;
@@ -106,6 +118,26 @@ public class ActivityModule {
     @Provides
     BookListPresenter<BookListView> provideBookListPresenter(DataManager manager){
         return new BookListPresenterImpl<>(manager);
+    }
+
+    @Provides
+    PeriodContentPresenter<PeriodContentView> providePeriodContentPresenter(DataManager manager){
+        return new PeriodContentPresenterImpl<>(manager);
+    }
+
+    @Provides
+    CommentPresenter<CommentView> provideCommentPresenter(DataManager manager){
+        return new CommentPresenterImpl<>(manager);
+    }
+
+    @Provides
+    QuestionPresenter<QuestionView> provideQuestionPresenter(DataManager manager){
+        return new QuestionPresenterImpl<>(manager);
+    }
+
+    @Provides
+    CollectCommentPresenter<CollectCommentView> provideCollectCommentPresenter(DataManager manager){
+        return new CollectCommentPresenterImpl<>(manager);
     }
 
     @Provides

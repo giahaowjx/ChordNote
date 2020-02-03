@@ -4,6 +4,6 @@ import com.example.chordnote.ui.base.MvpPresenter;
 
 public interface CollectDynamicPresenter<V extends CollectDynamicView> extends MvpPresenter<V> {
 
-
+    void setDynamicList(String email);
 
 }

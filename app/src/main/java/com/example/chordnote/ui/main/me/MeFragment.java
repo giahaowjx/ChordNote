@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.chordnote.R;
+import com.example.chordnote.ui.collectcomments.CollectCommentActivity;
 import com.example.chordnote.ui.collectdynamics.CollectDynamicActivity;
 import com.example.chordnote.ui.mydynamics.MyDynamicActivity;
 import com.example.chordnote.ui.userinfo.UserInfoActivity;
@@ -68,6 +69,8 @@ public class MeFragment extends BaseFragment implements MeView {
     MePresenter<MeView> presenter;
 
     private Long userId;
+
+    private String email;
 
     public static final int USER_LOGIN = 1;
 
@@ -150,19 +153,20 @@ public class MeFragment extends BaseFragment implements MeView {
 
     @OnClick(R.id.user_dynamic_menu)
     public void onClickUserDynamicMenu(View view) {
-        Intent intent = MyDynamicActivity.getIntent(getContext());
+        Intent intent = MyDynamicActivity.getIntent(getContext(), email);
         startActivity(intent);
     }
 
     @OnClick(R.id.user_like_dynamic_menu)
     public void onClickUserLikeDynamicMenu(View view) {
-        Intent intent = CollectDynamicActivity.getIntent(getContext());
+        Intent intent = CollectDynamicActivity.getIntent(getContext(), email);
         startActivity(intent);
     }
 
     @OnClick(R.id.user_collect_comment_menu)
-    public void onClickUserCollectCOmmentMenu(View view){
-
+    public void onClickUserCollectCommentMenu(View view){
+        Intent intent = CollectCommentActivity.getIntent(getContext(), email);
+        startActivity(intent);
     }
 
     @OnClick(R.id.user_head_img)
@@ -237,16 +241,11 @@ public class MeFragment extends BaseFragment implements MeView {
         userNameText.setText("请登录");
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void setUserEmail(String email) {
+        this.email = email;
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

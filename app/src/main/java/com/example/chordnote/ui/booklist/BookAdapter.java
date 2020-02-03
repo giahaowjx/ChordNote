@@ -1,6 +1,8 @@
-package com.example.chordnote.ui.main.study;
+package com.example.chordnote.ui.booklist;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chordnote.R;
+import com.example.chordnote.data.network.model.Book;
+import com.example.chordnote.ui.main.MainActivity;
+import com.example.chordnote.ui.main.study.BookInfo;
 
 import java.util.List;
 
-public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHolder> {
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     private static final String TAG = "BookInfoAdapter";
     
     private Context mContext;
 
-    private List<BookInfo> bookInfoList;
+    private List<Book> bookList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -38,8 +43,8 @@ public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHo
         }
     }
 
-    public BookInfoAdapter(List<BookInfo> bookInfoList) {
-        this.bookInfoList = bookInfoList;
+    public BookAdapter(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     @Override
@@ -57,13 +62,13 @@ public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BookInfo bookInfo = bookInfoList.get(position);
+        Book bookInfo = bookList.get(position);
 
         holder.bookName.setText(bookInfo.getBookName());
 
-        if (bookInfo.getBookCover().length() > 0) {
+        if (bookInfo.getBookProfileImg().length() > 0) {
             Glide.with(mContext)
-                    .load(bookInfo.getBookCover())
+                    .load(bookInfo.getBookProfileImg())
                     .into(holder.bookCover);
         } else {
             Glide.with(mContext)
@@ -74,7 +79,11 @@ public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHo
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("bookId", bookList.get(position).getIdBook());
+                ((Activity)v.getContext()).setResult(MainActivity.BOOK_ACTIVITY, intent);
 
+                ((Activity)v.getContext()).finish();
             }
         });
 
@@ -85,6 +94,6 @@ public class BookInfoAdapter extends RecyclerView.Adapter<BookInfoAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return bookInfoList.size();
+        return bookList.size();
     }
 }

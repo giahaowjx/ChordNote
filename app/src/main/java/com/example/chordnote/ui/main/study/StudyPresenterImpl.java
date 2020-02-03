@@ -71,7 +71,12 @@ public class StudyPresenterImpl<V extends StudyView> extends BasePresenter<V> im
                     @Override
                     public void onNext(ChapterListResponse chapterListResponse) {
                         Log.d(TAG, "onNext: ");
-                        // TODO
+
+                        if (chapterListResponse.getCode() == 1000){
+                            getMvpView().setChapterList(chapterListResponse.getChapterList());
+                        }else{
+                            getMvpView().showToastText("获取目录失败！");
+                        }
                     }
                 });
     }

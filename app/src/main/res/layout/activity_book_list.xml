@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray"
     android:orientation="vertical">
 
@@ -24,7 +25,8 @@
                 android:id="@+id/book_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawSelectorOnTop="true" />
+                android:drawSelectorOnTop="true"
+                app:spanCount="2"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

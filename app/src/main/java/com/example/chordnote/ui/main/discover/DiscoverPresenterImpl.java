@@ -46,7 +46,11 @@ public class DiscoverPresenterImpl<V extends DiscoverView> extends BasePresenter
                     public void onNext(DynamicsResponse dynamicsResponse) {
                         Log.d(TAG, "onNext: ");
 
-                        // TODO
+                        if (dynamicsResponse.getCode() == 1000){
+                            getMvpView().setDynamicList(dynamicsResponse.getUserDynamicList());
+                        }else{
+                            getMvpView().showToastText("获取动态失败");
+                        }
                     }
                 });
     }

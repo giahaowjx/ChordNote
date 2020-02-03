@@ -17,31 +17,38 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-public class MyDynamicActivity extends BaseActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    public void init(){
-        dynamics = new ArrayList<>();
-        Dynamic dynamic = new Dynamic();
-        dynamic.setContent("乐理好难学");
-        dynamic.setEmail("761497526@qq.com");
-        dynamic.setLikeNum(100);
-        dynamic.setNickName("giahao");
-        dynamic.setTitle("乐理真的难");
-        Dynamic dynamic1 = new Dynamic();
-        dynamic1.setContent("乐理好难学");
-        dynamic1.setEmail("761497526@qq.com");
-        dynamic1.setLikeNum(100);
-        dynamic1.setNickName("giahao");
-        dynamic1.setTitle("乐理真的难");
-        dynamics.add(dynamic);
-        dynamics.add(dynamic1);
-    }
+public class MyDynamicActivity extends BaseActivity implements MyDynamicView {
 
-    private RecyclerView myDynamics;
+//    public void init(){
+//        dynamics = new ArrayList<>();
+//        Dynamic dynamic = new Dynamic();
+//        dynamic.setContent("乐理好难学");
+//        dynamic.setEmail("761497526@qq.com");
+//        dynamic.setLikeNum(100);
+//        dynamic.setNickName("giahao");
+//        dynamic.setTitle("乐理真的难");
+//        Dynamic dynamic1 = new Dynamic();
+//        dynamic1.setContent("乐理好难学");
+//        dynamic1.setEmail("761497526@qq.com");
+//        dynamic1.setLikeNum(100);
+//        dynamic1.setNickName("giahao");
+//        dynamic1.setTitle("乐理真的难");
+//        dynamics.add(dynamic);
+//        dynamics.add(dynamic1);
+//    }
 
-    private CommonBar bar;
+    @BindView(R.id.my_dynamic_list_view)
+    RecyclerView myDynamics;
+
+    @BindView(R.id.my_dynamic_commonbar)
+    CommonBar bar;
 
     private ArrayList<Dynamic> dynamics;
+
+    private String email;
 
     @Inject
     MyDynamicPresenter<MyDynamicView> presenter;
@@ -51,19 +58,35 @@ public class MyDynamicActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dynamic);
 
-        init();
+        ButterKnife.bind(this);
 
-        myDynamics = findViewById(R.id.my_dynamic_list_view);
+        getActivityComponent().inject(this);
+
+        presenter.onAttach(this);
+
         myDynamics.setLayoutManager(new LinearLayoutManager(this));
-        myDynamics.setAdapter(new DynamicAdapter(this, dynamics));
 
+        // 获取用户email
+        email = getIntent().getStringExtra("email");
+        if (email != null){
+            presenter.setDynamicList(email);
+        }
+//        init();
         getSupportActionBar().hide();
 
-        bar = findViewById(R.id.my_dynamic_commonbar);
         bar.setBarTitleText("我的动态");
     }
 
-    public static Intent getIntent(Context context){
-        return new Intent(context, MyDynamicActivity.class);
+    public static Intent getIntent(Context context, String email){
+        Intent intent = new Intent(context, MyDynamicActivity.class);
+        intent.putExtra("email", email);
+        return intent;
+    }
+
+    @Override
+    public void setDynamicList(ArrayList<Dynamic> dynamics) {
+        this.dynamics = dynamics;
+
+        myDynamics.setAdapter(new DynamicAdapter(this, dynamics));
     }
 }
